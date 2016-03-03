@@ -1,0 +1,52 @@
+{
+  "name": "NextTier-Library",
+  "description": "Library",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nexttier/library",
+  "license": "",
+  "private": true,
+  "dependencies": {
+    "angular": "1.4.x",
+    "angular-cache": "*",
+    "angular-cookies": "~1.x",
+    "angular-facebook": "~0.2.3",
+    "angular-loader": "~1.4.x",
+    "angular-local-storage": "0.0.7",
+    "angular-mocks": "~1.4.x",
+    "angular-route": "1.4.x",
+    "angular-sanitize": "~1.4.5",
+    "angular-strap": "~2.2.4",
+    "angular-svg-round-progressbar": "=0.2.7",
+    "angular-touch": "1.4.x",
+    "angular-ui-grid": "3.0.x",
+    "at-table": "1.0.4",
+    "bootstrap-css-only": "~3.3.4",
+    "fontawesome": "^4.2.0",
+    "html5-boilerplate": "~5.0.x",
+    "jquery": "2.1.x",
+    "jquery-ui": "1.11.x",
+    "js-xlsx": "*",
+    "lodash": "*",
+    "moment": "~2.10.3",
+    "ngInfiniteScroll": "1.2.x",
+    "toastr": "2.1.x",
+    "ui-select": "angular-ui-select#~0.12.1",
+    "bootstrap-additions": "~0.3.1",
+    "angular-motion": "~0.4.3",
+    "angular-animate": "~1.4.7",
+    "ng-file-upload": "~9.1.2",
+    "majora": "1.x",
+    "angular-xeditable": "~0.1.9",
+
+  },
+  "resolutions": {
+    "angular": "1.4.x"
+  },
+  "overrides": {
+    "fontawesome": {
+      "main": [
+        "css/font-awesome.min.css"
+      ]
+    }
+  }
+}
