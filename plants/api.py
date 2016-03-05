@@ -22,14 +22,13 @@ class CurrentUserMixin(object):
         return self.get_queryset()
 
 
-
-class Register(CurrentUserMixin, generics.RetrieveUpdateAPIView):
-    permission_classes = AllowAny
+class Register( generics.CreateAPIView):
+    permission_classes = [AllowAny]
     model = Stakeholder
 
     def post(self, request):
-        stk = Stakeholder.objects.create_user(email = request.DATA['email'])
-        stk.set_password(request.DATA['password'])
+        stk = Stakeholder.objects.create_user(email = request.data['email'])
+        stk.set_password(request.data['password'])
         stk.save()
         token = Token.objects.create(user=stk)
         result = {
@@ -41,26 +40,29 @@ class Register(CurrentUserMixin, generics.RetrieveUpdateAPIView):
 
 
 class Login(CurrentUserMixin, generics.RetrieveAPIView):
-    permission_classes = AllowAny
+    permission_classes = [AllowAny]
     model = Stakeholder
 
     def post(self, request):
 
-        user = authenticate(
-            username=request.DATA['email'],
-            password=request.DATA['password'])
+        try:
+            user = authenticate(
+                username=request.data['email'],
+                password=request.data['password'])
 
-        if user:
-            login(request, user)
+            if user:
+                login(request, user)
 
-            token = Token.objects.get(user__pk=user.pk)
+                token = Token.objects.get(user__pk=user.pk)
 
-            result = {
-                  'token': token.key,
-                  'id' :user.pk
-            }
+                result = {
+                      'token': token.key,
+                      'id' :user.pk
+                }
 
             return Response(result, status=status.HTTP_200_OK)
+        except Exception as e:
+            print e
 
         return Response(
             {'detail': 'Failed to login'}, status=status.HTTP_400_BAD_REQUEST)

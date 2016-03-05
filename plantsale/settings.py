@@ -63,7 +63,7 @@ WSGI_APPLICATION = 'plantsale.wsgi.application'
 
 
 ## Default to a linked container called DB_1. Only used if DATABASE_URL isn't set
-DOCKER_DB_URL = 'postgres://docker:docker@{0}/docker'.format( os.environ.get('DB_1_PORT_5432_TCP_ADDR') )
+DOCKER_DB_URL = 'postgres://docker:docker@{0}/docker'.format( os.environ.get('DB_1_PORT_5432_TCP_ADDR', 'localdocker:5555') )
 
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 DATABASES = {

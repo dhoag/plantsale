@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.hashers import (
     check_password, make_password, is_password_usable)
 
+from managers import StakeholderManager
+
 class Plant(models.Model):
 
     name = models.CharField(max_length=100)
@@ -15,6 +17,8 @@ class Stakeholder(models.Model):
 
     email = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(auto_now=True)
+    objects = StakeholderManager()
 
     REQUIRED_FIELDS = ['password']
     USERNAME_FIELD = 'email'
