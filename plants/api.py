@@ -60,7 +60,7 @@ class Login(CurrentUserMixin, generics.RetrieveAPIView):
                       'id' :user.pk
                 }
 
-            return Response(result, status=status.HTTP_200_OK)
+                return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
             print e
 
