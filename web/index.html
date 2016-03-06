@@ -1,4 +1,29 @@
-<html>
-   <head></head>
-   <body><h1>Hi Logan</hi></body>
+<!DOCTYPE html >
+<html lang="en" ng-app="plantsale" class="no-js">
+<head>
+
+    <base href="/" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Make a difference and buy a plant for Mill St</title>
+    <meta name="description" content="Mill St Plant Sale" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0, width=device-width, minimal-ui" />
+
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+</head>
+
+<body ng-controller="Site" data-ng-class="{ 'logged-in': loggedIn }" >
+  <main x-ng-view></main>
+
+  <script src="app/core.min.js"></script>
+  <script src="app/components/api.js"></script>
+  <script src="app/components/urls.js"></script>
+  <script src="app/account/auth.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/site.js"></script>
+
+</body>
 </html>
+

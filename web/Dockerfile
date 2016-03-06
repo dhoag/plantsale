@@ -14,4 +14,5 @@ ADD . /home/app
 WORKDIR /home/app
 RUN bower --allow-root install
 ADD site.conf /etc/nginx/conf.d/default.conf
+RUN ./core.sh
 EXPOSE 80 443
