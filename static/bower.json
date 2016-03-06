@@ -37,6 +37,8 @@
     "ng-file-upload": "~9.1.2",
     "majora": "1.x",
     "angular-xeditable": "~0.1.9",
+    "vokal-ngDialog": "https://github.com/vokal/ngDialog.git#0.4.x",
+    "d3":"*"
 
   },
   "resolutions": {

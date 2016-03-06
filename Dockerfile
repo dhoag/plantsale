@@ -1,10 +1,8 @@
 FROM ubuntu:trusty
 
 RUN mkdir /code || true
-
-WORKDIR /code
-
-ADD requirements.txt /code/
+RUN mkdir /code/plantsale || true
+WORKDIR /code/plantsale
 
 RUN apt-get update -qq && \
     apt-get install -y -qq socat git python-pip python-psycopg2 libpq-dev \
@@ -14,14 +12,12 @@ RUN apt-get update -qq && \
     apt-get clean > /dev/null && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ADD requirements.txt /code/plantsale
 RUN pip -q install -r requirements.txt
 
 RUN locale-gen "en_US.UTF-8"
 ENV LC_ALL en_US.UTF-8
-ADD . /code/
+ADD . /code/plantsale
 
-WORKDIR /code/plantsale
-
-EXPOSE 8080
-ENTRYPOINT ["/code/next-tier/docker-bootstrap.sh"]
-CMD gunicorn -w $NUM_WORKERS -t $TIMEOUT -b 0.0.0.0:8080 --log-syslog --log-level=debug --log-syslog-prefix $NAME --log-syslog-to udp://app_syslog:514 --name $NAME plantsale.wsgi
+EXPOSE 80
+CMD gunicorn -w 2 -t 30 -b 0.0.0.0:80 --log-level=debug --name plantsale plantsale.wsgi

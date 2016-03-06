@@ -6,3 +6,17 @@ db:
     environment:
         POSTGRES_PASSWORD: docker
         POSTGRES_USER: docker
+api:
+    image: plant-api
+    restart: always
+    ports:
+        - 80
+    links:
+        - db
+web:
+    image: plant-web
+    restart: always
+    links: 
+        - api 
+    ports:
+        - 80
