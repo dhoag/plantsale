@@ -5,9 +5,10 @@ LIST="${LIST} bower_components/ngInfiniteScroll/build/ng-infinite-scroll"
 
 rm app/core.min.js
 for i in $LIST; do
-   if [ -f ${i}.min.js ]; then
+   if [ -f ${i}.minOOOO.js ]; then
       cat ${i}.min.js  >> app/core.min.js
    else
       cat ${i}.js >> app/core.min.js
    fi
+   printf "\n" >> app/core.min.js
 done   

@@ -1,5 +1,5 @@
 (function () {
-    var siteMod = angular.module('site', [ ]);
+    var siteMod = angular.module('site-mod', []);
     siteMod.controller("Site", Site);
 
     Site.$inject = [ "$scope", "$rootScope", "$route" ];

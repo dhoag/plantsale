@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
-
-	var app = angular.module('plantsale', ['ngRoute' ]);
+ 
+	var app = angular.module('plantsale', ['ngRoute', 'account-mod', 'site-mod' ]);
 
 	app.config(["$routeProvider", "$locationProvider",
 		function ($routeProvider, $locationProvider) {
@@ -10,7 +10,13 @@
 
 			$routeProvider
 				.when("/404", {templateUrl: "app/components/404.html"})
-				.when("/", {templateUrl: "app/account/login.html"});
+				.when("/", {
+					templateUrl: "app/account/login.html",
+					controller: "Account",
+					controllerAs: "vm"
+				})
+				.otherwise({redirectTo: '/'});
+
 		}
 	]);
 

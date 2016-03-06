@@ -1,0 +1,9 @@
+web:
+    build: .
+    restart: always
+    external_links: 
+        - plantsale_api_1:api
+    volumes:
+        - .:/home/app
+    ports:
+        - 4000:80
