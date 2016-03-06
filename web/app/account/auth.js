@@ -18,19 +18,11 @@
                     return result;
                 })
         }
-        function getData(email, password){
-            return {
-                "email":email,
-                "password":password
-            };
+        function login(credentials){
+            return postApi(UrlGenerator.auth.login(),credentials);
         }
-        function login(email, password){
-            var data = getData(email, password);
-            return postApi(UrlGenerator.auth.login(),data);
-        }
-        function register(email, password){
-            var data = getData(email, password);
-            return postApi(UrlGenerator.auth.register(),data);
+        function register(credentials){
+            return postApi(UrlGenerator.auth.register(),credentials);
         }
     }
 })();
