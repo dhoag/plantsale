@@ -1,7 +1,7 @@
 (function() {
 
-    var apiMod = angular.module("api-mod");
-    Api.$inject = ["$http", "$rootScope", "$location", "$q", "localStorageService"];
+    var apiMod = angular.module('api-mod');
+    Api.$inject = [ "$http", "$rootScope", "$q", "localStorageService" ];
     apiMod.factory("API", Api);
 
     function Api( $http, $rootScope, $q, localStorageService ) {

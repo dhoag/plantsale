@@ -10,6 +10,6 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/?$', api.Login.as_view(), name='login',),
-    url(r'^register/?$', api.Register.as_view(), name='register',),
+    url(r'^api/login/?$', api.Login.as_view(), name='login',),
+    url(r'^api/register/?$', api.Register.as_view(), name='register',),
 ]

@@ -15,10 +15,8 @@
             return API.$post(path, data)
                 .then(function (result) {
                     API.setAuthToken(result.data.token);
+                    return result;
                 })
-                .catch(function (result) {
-                    console.log(result);
-                });
         }
         function getData(email, password){
             return {

@@ -17,13 +17,13 @@
         }
         function register(){
             Auth.register(vm.creds)
-                .success(function(ex){
+                .then(function(ex){
                     console.log("Success!");
                 })
         }
         function login(){
             Auth.login(vm.creds)
-                .success(function(ex){
+                .then(function(ex){
                     console.log("Success!");
                 })
         }

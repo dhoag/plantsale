@@ -7,10 +7,11 @@
         return urls;
 
         function initUrls(urls){
-            var apiRoot = "/api/";
+            //var apiRoot = "/api/";
+            var apiRoot = "http://localhost:8000/api/";
             urls.auth = {
-                login : function(){ return apiRoot + "/login/" },
-                register: function(){ return apiRoot + "/register/" }
+                login : function(){ return apiRoot + "login/" },
+                register: function(){ return apiRoot + "register/" }
             };
         }
     }

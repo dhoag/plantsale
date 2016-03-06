@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 from models import Stakeholder
+from serializers import AccountSerializer, LoginSerializer
 
 
 class CurrentUserMixin(object):
@@ -25,6 +26,7 @@ class CurrentUserMixin(object):
 class Register( generics.CreateAPIView):
     permission_classes = [AllowAny]
     model = Stakeholder
+    serializer_class = AccountSerializer
 
     def post(self, request):
         stk = Stakeholder.objects.create_user(email = request.data['email'])
@@ -33,6 +35,7 @@ class Register( generics.CreateAPIView):
         token = Token.objects.create(user=stk)
         result = {
             'token': token.key,
+            'email': stk.email,
             'id' : stk.pk
         }
 
@@ -42,6 +45,7 @@ class Register( generics.CreateAPIView):
 class Login(CurrentUserMixin, generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     model = Stakeholder
+    serializer_class = LoginSerializer
 
     def post(self, request):
 
@@ -56,8 +60,9 @@ class Login(CurrentUserMixin, generics.RetrieveAPIView):
                 token = Token.objects.get(user__pk=user.pk)
 
                 result = {
-                      'token': token.key,
-                      'id' :user.pk
+                    'token': token.key,
+                    'email' : user.email,
+                    'id' :user.pk
                 }
 
                 return Response(result, status=status.HTTP_200_OK)

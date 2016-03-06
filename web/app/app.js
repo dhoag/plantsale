@@ -1,10 +1,10 @@
 (function() {
 	'use strict';
  
-	var app = angular.module('plantsale', ['ngRoute', 'account-mod', 'site-mod' ]);
+	var app = angular.module('plantsale', [ 'ngRoute', 'account-mod', 'site-mod', 'LocalStorageModule' ]);
 
-	app.config(["$routeProvider", "$locationProvider",
-		function ($routeProvider, $locationProvider) {
+	app.config(["$routeProvider", "$locationProvider", "localStorageServiceProvider",
+		function ($routeProvider, $locationProvider, localStorageServiceProvider ) {
 
 			$locationProvider.html5Mode(true).hashPrefix("!");
 
@@ -17,6 +17,8 @@
 				})
 				.otherwise({redirectTo: '/'});
 
+              localStorageServiceProvider
+                .setPrefix('plantSale');
 		}
 	]);
 
