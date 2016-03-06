@@ -5,8 +5,12 @@
     function Auth(API, UrlGenerator){
         return {
             login: login,
-            register: register
+            register: register,
+            isLoggedIn: isLoggedIn
         };
+        function isLoggedIn(){
+            return API.getAuthToken() != null;
+        }
         function postApi(path, data) {
             return API.$post(path, data)
                 .then(function (result) {

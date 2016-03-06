@@ -1,13 +1,12 @@
 <div class="container">
-    <form>
+    <form ng-if="!loggedIn" class="form-inline pull-right" ng-submit="vm.login()">
         <fieldset class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-            <small class="text-muted">We'll never share your email with anyone else.</small>
+            <input type="email" class="form-control" placeholder="Email Address" ng-model="vm.creds.email">
         </fieldset>
         <fieldset class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password" class="form-control"  placeholder="Password" ng-model="vm.creds.password">
         </fieldset>
+        <button class="btn btn-primary" ng-click="vm.register()">Register</button>
+        <button type="submit" class="btn btn-primary">Sign In</button>
     </form>
 </div>
