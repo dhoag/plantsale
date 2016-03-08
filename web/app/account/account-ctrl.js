@@ -9,23 +9,32 @@
         vm.creds = { email: "", password: "" };
         vm.login = login;
         vm.register = register;
+        vm.logout = logout;
 
         initialize();
 
         function initialize(){
             $scope.loggedIn = Auth.isLoggedIn();
+            vm.email = Auth.getUser();
         }
         function register(){
             Auth.register(vm.creds)
                 .then(function(ex){
-                    console.log("Success!");
+                    initialize();
                 })
         }
         function login(){
             Auth.login(vm.creds)
                 .then(function(ex){
-                    console.log("Success!");
+                    initialize();
                 })
+                .catch(function(ex){
+                    toastr.error("Failed to sign in. Invalid user id or password.")
+                })
+        }
+        function logout(){
+            Auth.logout();
+            initialize();
         }
     }
 })();
