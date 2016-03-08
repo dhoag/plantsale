@@ -26,21 +26,56 @@
         <form class="form-inline" submit="vm.search">
             <fieldset class="form-group">
                 <input type="text" class="form-control" placeholder="Search" ng-model="vm.searchText">
-                <button type="submit" class="btn btn-default btn-lg">
-                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+                <button type="submit" class="btn btn-default btn-sm">
+                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
             </fieldset>
         </form>
-        <div class="row">
-            <ul>
-            <li><input type="checkbox">Choice</li>
-            <li><input type="checkbox">Choice</li>
-            <li><input type="checkbox">Choice</li>
-            <li><input type="checkbox">Choice4</li>
-            </ul>
-        </div>
+        <dikv class="row">
+            <div class="container">
+                <div class="checkbox">
+                  <label> <input type="checkbox" value="">Dandelion </label>
+                </div>
+                <div class="checkbox">
+                    <label> <input type="checkbox" value="">Hosta</label>
+                </div>
+                <li><input type="checkbox">Elm Tree</li>
+                <li><input type="checkbox">Poison Ivy</li>
+            </div>
+        </dikv>
      </div>
         <div class="col-xs-7 col-md-6">
+            <div class="panel col-xs-6 panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Dandelion</h3>
+                  <h4>$4 each</h4>
+              </div>
+              <div class="panel-body">
+                  <img src="http://www.ediblewildfood.com/images/dandelion-pictures/dandelion-flower.jpg"
+                      class="img-circle"  width="94" height="94">
+                  <div class="form-group">
+                      <label for="qty">Qty:</label>
+                      <input class="form-control" id="qty" type="text">
+                  </div>
+                  <label >Price:</label>
+              </div>
+            </div>
+            <div class="panel col-xs-6 panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Hosta</h3>
+                    <h4>$2 each</h4>
+                </div>
+                <div class="panel-body">
+                    <img src="https://carolynsshadegardensdotcom.files.wordpress.com/2011/05/dscn4164.jpg"
+                         class="img-rounded"  width="124" height="94">
+                    <div class="form-group-sm" style="border: 1px solid #ccc; margin-top: 10px">
+                        <label for="qty2" class="col-xs-5">Qty:</label>
+                        <input id="qty2" class="col-xs-7" type="text">
+                    </div>
+                    <label class="">Price: </label><span class="pull-right">$234</span>
+                </div>
+            </div>
+        </div>
             <button class="button pull-right">Save</button>
         <div>
     </div>
