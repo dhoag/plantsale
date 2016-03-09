@@ -15,7 +15,9 @@ class Plant(models.Model):
     type = models.CharField(max_length=100, blank=True, null=True)
     color_preference = models.BooleanField(default=False)
     color_limits = models.CharField(max_length=255, blank=True, null=True)
-    notes = models.CharField(max_length=100, blank=True, null=True)
+    notes = models.CharField(max_length=255, blank=True, null=True)
+    img_url = models.CharField(max_length=255, blank=True, null=True)
+    marketing = models.CharField(max_length=255, blank=True, null=True)
 
 
 class Stakeholder(models.Model):
