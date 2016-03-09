@@ -8,9 +8,14 @@ from managers import StakeholderManager
 
 class Plant(models.Model):
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
     cost = models.FloatField(default=0.0)
+    sun= models.CharField(max_length=100, blank=True, null=True)
+    type = models.CharField(max_length=100, blank=True, null=True)
+    color_preference = models.BooleanField(default=False)
+    color_limits = models.CharField(max_length=255, blank=True, null=True)
+    notes = models.CharField(max_length=100, blank=True, null=True)
 
 
 class Stakeholder(models.Model):
@@ -69,14 +74,24 @@ class Stakeholder(models.Model):
 
 class Order(models.Model):
 
-    last_updated = models.DateTimeField(null=True, blank=True)
     done = models.BooleanField(default=False)
     stakeholder = models.ForeignKey(Stakeholder, related_name="orders", on_delete=models.CASCADE )
 
+    @property
+    def last_updated(self):
+        for item in items:
+           return item.updated
 
 class OrderItem(models.Model):
 
     plant = models.ForeignKey(Plant)
     order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE )
+    qty = models.IntegerField(default=1)
+    color = models.CharField(max_length=200, blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    @property
+    def total(self):
+        return self.qty * self.plant.cost
 
 
