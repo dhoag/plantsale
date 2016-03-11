@@ -9,3 +9,8 @@
   max-height: 800px;
   overflow-y: scroll;
 }
+.notes{
+  color:blue;
+  margin-top: 15px;
+  font-weight: normal;
+}
