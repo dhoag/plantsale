@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Stakeholder
+from .models import Stakeholder, Plant
 
 class EmailLowercase(object):
 
@@ -24,5 +24,11 @@ class AccountSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     email = serializers.CharField()
     token = serializers.CharField()
+
+
+class PlantSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Plant
 
 

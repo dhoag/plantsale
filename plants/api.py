@@ -7,8 +7,8 @@ from rest_framework import generics, views, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
-from models import Stakeholder
-from serializers import AccountSerializer, LoginSerializer
+from models import Stakeholder, Plant
+from serializers import AccountSerializer, LoginSerializer, PlantSerializer
 
 
 class CurrentUserMixin(object):
@@ -22,6 +22,14 @@ class CurrentUserMixin(object):
     def get_object(self):
         return self.get_queryset()
 
+
+class Inventory( generics.ListAPIView ):
+    permission_classes = [AllowAny]
+    model = Plant
+    serializer_class = PlantSerializer
+
+    def get_queryset(self):
+        return Plant.objects.all();
 
 class Register( generics.CreateAPIView):
     permission_classes = [AllowAny]

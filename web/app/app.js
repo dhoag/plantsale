@@ -11,8 +11,8 @@
 			$routeProvider
 				.when("/404", {templateUrl: "app/components/404.html"})
 				.when("/", {
-					templateUrl: "app/account/login.html",
-					controller: "Account",
+					templateUrl: "app/inventory/plants.html",
+					controller: "Inventory",
 					controllerAs: "vm"
 				})
 				.otherwise({redirectTo: '/'});
