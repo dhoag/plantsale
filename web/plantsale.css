@@ -3,3 +3,9 @@
   max-height: 300px;
   overflow-y: scroll;
 }
+
+.plant-list{
+  min-height: 800px;
+  max-height: 800px;
+  overflow-y: scroll;
+}
