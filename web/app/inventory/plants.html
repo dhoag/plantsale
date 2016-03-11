@@ -11,7 +11,7 @@
         <div class="plant-list">
             <div ng-repeat="cat in vm.categories">
                 <p ng-click="vm.toggleCat(cat)" class="panel-header">
-                    {{ cat }} <span class="glyphicon glyphicon-collapse-down"></span></p>
+                    <span class="glyphicon glyphicon-collapse-down"></span>{{ cat }}</p>
 
             <div ng-repeat="plant in vm.plants | filter:vm.searchText track by plant.id">
                 <div ng-if="(cat == plant.type && (plant.selected || plant.category))" class="checkbox" ng-click="vm.toggleOrder(plant.id)">
@@ -44,9 +44,10 @@
             <div class="panel-body">
                 <div ng-if="plant.limit">
                     <form>
-                        <div class="form-group" ng-repeat="color in plant.colors">
-                            <label class="form-control-static">{{ color }}</label>
-                            <input class="form-control" type="text" placeholder="0">
+                        <div ng-repeat="color in plant.colors">
+                            <!-- <label class="form-control-static">{{ color }}</label> -->
+                            <input class="col-xs-9" type="text" value="{{ color }}" disabled>
+                            <input class="col-xs-3" type="text" placeholder="0">
                         </div>
                     </form>
                 </div>

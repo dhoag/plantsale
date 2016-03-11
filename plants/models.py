@@ -26,6 +26,8 @@ class Stakeholder(models.Model):
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(auto_now=True)
     objects = StakeholderManager()
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = ['password']
     USERNAME_FIELD = 'email'
@@ -68,10 +70,16 @@ class Stakeholder(models.Model):
         return is_password_usable(self.password)
 
     def get_full_name(self):
-        raise NotImplementedError()
+        return self.get_short_name()
 
     def get_short_name(self):
-        raise NotImplementedError()
+        return self.email
+
+    def has_module_perms(self, label):
+        return True
+
+    def has_perm(self, label):
+        return True
 
 
 class Order(models.Model):

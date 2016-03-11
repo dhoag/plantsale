@@ -1,0 +1,1 @@
+export DATABASE_URL=postgres://docker:docker@localdocker:5555/docker
