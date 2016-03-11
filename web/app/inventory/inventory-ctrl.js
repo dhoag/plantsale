@@ -11,7 +11,7 @@
       function initialize(){
          API.$get(UrlGenerator.inventory.plants())
              .then(function(results){
-                plants = results.data;
+                vm.plants = results.data;
              })
 
       }

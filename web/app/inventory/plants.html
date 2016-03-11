@@ -9,18 +9,11 @@
                     </button>
                 </fieldset>
             </form>
-            <dikv class="row">
-                <div class="container">
-                    <div class="checkbox">
-                        <label> <input type="checkbox" value="">Dandelion </label>
-                    </div>
-                    <div class="checkbox">
-                        <label> <input type="checkbox" value="">Hosta</label>
-                    </div>
-                    <li><input type="checkbox">Elm Tree</li>
-                    <li><input type="checkbox">Poison Ivy</li>
+            <div class="row" ng-repeat="plant in vm.plants | filter:vm.searchText track by plant.id">
+                <div class="checkbox">
+                    <label> <input type="checkbox" value="{{ plant.id }}">{{ plant.name }}</label>
                 </div>
-            </dikv>
+        </div>
         </div>
         <div class="col-xs-7 col-md-6">
             <div class="panel col-xs-6 panel-default">
@@ -38,7 +31,7 @@
                     <label>Price:</label>
                 </div>
             </div>
-            <div class="panel col-xs-6 panel-default">
+            <div class="panel col-xs-6 panel-default fixed-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">Hosta</h3>
                     <h4>$2 each</h4>
