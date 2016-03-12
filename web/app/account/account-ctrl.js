@@ -29,6 +29,7 @@
                     initialize();
                 })
                 .catch(function(ex){
+                    console.log(ex);
                     toastr.error("Failed to sign in. Invalid user id or password.")
                 })
         }

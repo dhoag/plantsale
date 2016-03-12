@@ -11,6 +11,7 @@
         vm.getRunningTotal = getRunningTotal;
         vm.orders = {};
         vm.categories = [];
+        vm.loggedIn = Auth.isLoggedIn();
         initialize();
         function getRunningTotal(){
             var total = 0;

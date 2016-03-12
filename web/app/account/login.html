@@ -7,7 +7,7 @@
                      alt="Mill Street Plant Sale">
             </div>
         </div>
-        <form ng-if="!loggedIn" class="navbar-form navbar-right" ng-submit="account.login()">
+        <form ng-if="!loggedIn" class="navbar-form navbar-right" >
             <fieldset class="form-group">
                 <input type="email" class="form-control" placeholder="Email Address" ng-model="account.creds.email">
             </fieldset>
@@ -15,7 +15,7 @@
                 <input type="password" class="form-control" placeholder="Password" ng-model="account.creds.password">
             </fieldset>
             <button class="btn btn-primary" ng-click="account.register()"><span class="glyphicon glyphicon-user"></span>Register</button>
-            <button type="submit" class="btn btn-primary">Sign In</button>
+            <button class="btn btn-primary" ng-click="account.login()">Sign In</button>
         </form>
         <form ng-if="loggedIn" class="form-inline pull-right" ng-submit="account.logout()">
             <label for="logout">{{ account.email }}</label>
