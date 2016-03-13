@@ -56,8 +56,11 @@
                     <label class="notes" ng-if="plant.notes">{{ plant.notes }}</label>
                 </div>
                 <div ng-if="plant.color_preference && !plant.limit">
-                    <input class="col-xs-9" type="text" placeholder="Color: Red, Pink, Etc...">
+                    <input class="col-xs-9" type="text" placeholder="Color: Red, Pink, Etc..."
+                           ng-change="vm.updateColor(plant)" ng-model-options="{debounce:1000}"
+                           ng-model="plant.free_color">
                     <input class="col-xs-3" type="text" defaultValue="1"
+                           ng-change="vm.updateQty(plant)" ng-model-options="{debounce:1000}"
                            ng-model="plant.qty">
                     <label class="notes" ng-if="plant.notes">{{ plant.notes }}</label>
                 </div>

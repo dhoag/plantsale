@@ -37,7 +37,7 @@
                                 plants[idx].colors = values;
                             }
                             else {
-                                plants[idx].free_color = { name: "", qty: 0};
+                                plants[idx].free_color = "";
                             }
                         }
                     }

@@ -13,17 +13,23 @@
         vm.getRunningTotal = getRunningTotal;
         vm.toggleOrderItem = toggleOrderItem;
         vm.updateQty = updateQty;
+        vm.updateColor = updateColor;
         vm.orders = {};
         vm.categories = [];
         vm.loggedIn = Auth.isLoggedIn();
         initialize();
 
+        function updateColor(plant){
+            OrderSvc.updateOrderItem(plant.orderId, { "color": plant.free_color})
+                .catch(function(ex){
+                    toastr.error("Please reload to ensure quantity update updated.");
+                });
+        }
         function updateQty(plant){
             OrderSvc.updateOrderItem(plant.orderId, { "qty": plant.qty })
                 .catch(function(ex){
                     toastr.error("Please reload to ensure quantity update updated.");
                 });
-
         }
         function getRunningTotal(){
             var total = 0;
@@ -68,23 +74,24 @@
         }
 
         function addPlantToOrder(plant) {
-            console.log("Adding " + plant.name);
-            var data = {
-                order: vm.order.id,
-                qty: plant.qty,
-                plant: plant.id
-            };
-            OrderSvc.addOrderItem(data)
-                .then(function (ex) {
-                    plant.orderId = ex.data.id;
-                })
-                .catch(function (error) {
-                    toastr.error("Failed to add item to order", error);
-                })
+
+            if(!plant.color_preference || !plant.limit) {
+                var data = {
+                    order: vm.order.id,
+                    qty: plant.qty,
+                    plant: plant.id
+                };
+                OrderSvc.addOrderItem(data)
+                    .then(function (ex) {
+                        plant.orderId = ex.data.id;
+                    })
+                    .catch(function (error) {
+                        toastr.error("Failed to add item to order", error);
+                    })
+            }
         }
 
         function removePlantFromOrder(plant) {
-            console.log("Deleting" + plant.name);
             OrderSvc.deleteOrderItem(plant.orderId)
                 .then(function (ex) {
                     plant.orderId = null;
@@ -95,13 +102,11 @@
         }
 
         function toggleOrderItem(plant){
-            if(!plant.color_preference){
-                if(plant.selected){
-                    addPlantToOrder(plant);
-                }
-                else{
-                    removePlantFromOrder(plant);
-                }
+            if(plant.selected){
+                addPlantToOrder(plant);
+            }
+            else{
+                removePlantFromOrder(plant);
             }
         }
     }
