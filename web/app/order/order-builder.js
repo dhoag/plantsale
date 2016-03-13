@@ -28,7 +28,9 @@
         function updateUser(){
             var data = {
                 name: vm.user.name,
-                phone: vm.user.phone
+                phone: vm.user.phone,
+                volunteer: vm.user.volunteer,
+                times: vm.user.times
             };
             Auth.updateAccount(data);
         }

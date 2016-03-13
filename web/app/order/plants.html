@@ -54,16 +54,27 @@
                     <label for="fullName">Name</label>
                     <input type="text" class="form-control" id="fullName" placeholder="Jane Doe"
                            ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
-                           ng-model="vm.user.name" >
+                           ng-model="vm.user.name">
                 </div>
                 <div class="form-group">
                     <label for="telephone">Phone</label>
                     <input type="tel" class="form-control" id="telephone" placeholder="xxx-xxx-xxxx"
-                        ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
-                        ng-model="vm.user.phone" >
+                           ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
+                           ng-model="vm.user.phone">
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <input type="checkbox"
+                               ng-change="vm.updateUser()"
+                               ng-model="vm.user.volunteer"><label>Volunteer</label>
+                    </div>
+                    <input ng-if="vm.user.volunteer" type="text"
+                           class="form-control" id="fullName" placeholder="Unloading, organizing, etc..."
+                           ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
+                           ng-model="vm.user.times">
                 </div>
             </form>
-            <h2 class="pull-right">${{ vm.getRunningTotal().toFixed(2) }}</h2>
+            <h2 class="pull-right">Total order cost: ${{ vm.getRunningTotal().toFixed(2) }}</h2>
         </div>
         <div class="panel col-xs-6 panel-default fixed-panel"
              ng-if="plant.selected"

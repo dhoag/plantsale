@@ -13,7 +13,14 @@
         };
 
         function updateAccount(data){
-            return API.$patch( UrlGenerator.user.account(getUser().id), data);
+            return API.$patch( UrlGenerator.user.account(getUser().id), data)
+                .then(function(ex){
+                    var user = getUser();
+                    for(key in data){
+                        user[key] = data[key];
+                    }
+                    localStorageService.set('user', user);
+                });
         }
         function isLoggedIn(){
             return API.getAuthToken() != null;
