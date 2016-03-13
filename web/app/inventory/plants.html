@@ -50,8 +50,10 @@
             <div ng-if="vm.loggedIn" class="panel-body">
                 <div ng-if="plant.limit">
                         <div ng-repeat="color in plant.colors">
-                            <input class="col-xs-9" type="text" value="{{ color.name }}" disabled>
-                            <input class="col-xs-3" type="text" ng-model="color.qty" placeholder="0">
+                            <input class="col-xs-9" type="text" value="{{ color.free_color }}" disabled>
+                            <input class="col-xs-3" type="text" ng-model="color.qty"
+                                   ng-change="vm.updateQty(color)" ng-model-options="{debounce:1000}"
+                                   placeholder="0">
                         </div>
                     <label class="notes" ng-if="plant.notes">{{ plant.notes }}</label>
                 </div>

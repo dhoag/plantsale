@@ -32,7 +32,7 @@
                                 var colors = plants[idx].color_limits.split(";");
                                 var values = [];
                                 for( var colIdx in colors){
-                                    values.push( { name: colors[colIdx], qty: 0});
+                                    values.push( { free_color: colors[colIdx], qty: 0, id: plants[idx].id});
                                 }
                                 plants[idx].colors = values;
                             }

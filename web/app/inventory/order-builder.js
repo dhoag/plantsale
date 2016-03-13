@@ -73,25 +73,44 @@
                 })
         }
 
-        function addPlantToOrder(plant) {
+        function addItem(plant) {
+            var data = {
+                order: vm.order.id,
+                qty: plant.qty,
+                plant: plant.id
+            };
+            if(plant.free_color){
+                data['color'] = plant.free_color;
+            }
+            OrderSvc.addOrderItem(data)
+                .then(function (ex) {
+                    plant.orderId = ex.data.id;
+                })
+                .catch(function (error) {
+                    toastr.error("Failed to add item to order", error);
+                })
+        }
+
+        function toggleOrderItem(plant){
+            var add = plant.selected;
 
             if(!plant.color_preference || !plant.limit) {
-                var data = {
-                    order: vm.order.id,
-                    qty: plant.qty,
-                    plant: plant.id
-                };
-                OrderSvc.addOrderItem(data)
-                    .then(function (ex) {
-                        plant.orderId = ex.data.id;
-                    })
-                    .catch(function (error) {
-                        toastr.error("Failed to add item to order", error);
-                    })
+                if(add)
+                    addItem(plant);
+                else
+                    removeItem(plant);
+            }
+            else{
+                for(idx in plant.colors){
+                    if(add)
+                        addItem(plant.colors[idx]);
+                    else
+                        removeItem(plant.colors[idx]);
+                }
             }
         }
 
-        function removePlantFromOrder(plant) {
+        function removeItem(plant) {
             OrderSvc.deleteOrderItem(plant.orderId)
                 .then(function (ex) {
                     plant.orderId = null;
@@ -101,13 +120,5 @@
                 })
         }
 
-        function toggleOrderItem(plant){
-            if(plant.selected){
-                addPlantToOrder(plant);
-            }
-            else{
-                removePlantFromOrder(plant);
-            }
-        }
     }
 })();
