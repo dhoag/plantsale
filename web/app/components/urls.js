@@ -16,6 +16,11 @@
                 login : function(){ return apiRoot + "login/" },
                 register: function(){ return apiRoot + "register/" }
             };
+            urls.user = {
+                orders : function(){ return apiRoot + "order/" },
+                addItem: function(){ return apiRoot + "order/items" },
+                updateItem: function(id){ return apiRoot + "order/item/" + id + "/" }
+            }
         }
     }
 })();
