@@ -1,14 +1,15 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework.authtoken.models import Token
 from rest_framework import generics, views, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
-from models import Stakeholder, Plant
-from serializers import AccountSerializer, LoginSerializer, PlantSerializer
+from models import Stakeholder, Plant, Order, OrderItem
+from serializers import AccountSerializer, LoginSerializer, PlantSerializer, OrderSerializer, OrderItemSerializer
 
 
 class CurrentUserMixin(object):
@@ -23,13 +24,40 @@ class CurrentUserMixin(object):
         return self.get_queryset()
 
 
+class GetOrder( generics.ListCreateAPIView, CurrentUserMixin):
+    permission_classes = [IsAuthenticated]
+    model = Order
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        orders = Order.objects.filter(stakeholder=self.request.user)
+        if orders.count() == 0:
+            order = Order()
+            order.stakeholder = self.request.user
+            order.save()
+
+        return Order.objects.filter(stakeholder=self.request.user)
+
+
+class Items( generics.ListCreateAPIView ):
+    permission_classes = [IsAuthenticated]
+    model = OrderItem
+    serializer_class = OrderItemSerializer
+
+
+class UpdateOrderItem( generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    model = OrderItem
+    serializer_class = OrderItemSerializer
+    queryset = OrderItem.objects.all()
+
+
 class Inventory( generics.ListAPIView ):
     permission_classes = [AllowAny]
     model = Plant
     serializer_class = PlantSerializer
+    queryset = Plant.objects.all()
 
-    def get_queryset(self):
-        return Plant.objects.all();
 
 class Register( generics.CreateAPIView):
     permission_classes = [AllowAny]

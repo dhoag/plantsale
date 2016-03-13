@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Stakeholder, Plant
+from .models import Stakeholder, Plant, Order, OrderItem
 
 class EmailLowercase(object):
 
@@ -24,6 +24,21 @@ class AccountSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     email = serializers.CharField()
     token = serializers.CharField()
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderItem
+        fields = ('id', 'order', 'plant', 'color', 'qty', 'updated')
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(many=True, read_only=True, allow_empty=True, allow_null=True)
+
+    class Meta:
+        model = Order
+        fields = ('id', 'last_updated', 'items', 'done')
 
 
 class PlantSerializer(serializers.ModelSerializer):

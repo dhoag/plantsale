@@ -12,5 +12,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/login/?$', api.Login.as_view(), name='login',),
     url(r'^api/register/?$', api.Register.as_view(), name='register',),
-    url(r'^api/inventory/?$', api.Inventory.as_view(), name='register',),
+    url(r'^api/inventory/?$', api.Inventory.as_view(), name='inventory',),
+    url(r'^api/order/?$', api.GetOrder.as_view(), name='order',),
+    url(r'^api/order/items/?$', api.Items.as_view(), name='list_items',),
+    url(r'^api/order/item/(?P<pk>\d+)/?$', api.UpdateOrderItem.as_view(), name='update_item',),
 ]

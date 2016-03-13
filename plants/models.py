@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
-from django.db import models
+from datetime import datetime
 
+from django.db import models
 from django.contrib.auth.hashers import (
     check_password, make_password, is_password_usable)
 
@@ -89,8 +90,9 @@ class Order(models.Model):
 
     @property
     def last_updated(self):
-        for item in items:
+        for item in self.items.all():
            return item.updated
+        return datetime.now()
 
 class OrderItem(models.Model):
 
