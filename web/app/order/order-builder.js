@@ -1,9 +1,9 @@
 (function () {
     angular.module('plantsale')
         .controller('OrderBuilder', OrderBuilder);
-    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc", "$scope"];
+    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc", "$location"];
 
-    function OrderBuilder(Auth, Inventory, OrderSvc, $scope) {
+    function OrderBuilder(Auth, Inventory, OrderSvc, $location) {
         var vm = this;
         vm.order = null;
         vm.searchText = "";
@@ -17,21 +17,29 @@
         vm.orders = {};
         vm.categories = [];
         vm.loggedIn = Auth.isLoggedIn();
-        initialize();
+        if(vm.loggedIn && !/order/.test($location.path())) {
+            $location.path("/order");
+        }
+        else {
+            initialize();
+        }
 
         function updateColor(plant){
+            if(!vm.loggedIn) return;
             OrderSvc.updateOrderItem(plant.orderId, { "color": plant.free_color})
                 .catch(function(ex){
                     toastr.error("Please reload to ensure quantity update updated.");
                 });
         }
         function updateQty(plant){
+            if(!vm.loggedIn) return;
             OrderSvc.updateOrderItem(plant.orderId, { "qty": plant.qty })
                 .catch(function(ex){
                     toastr.error("Please reload to ensure quantity update updated.");
                 });
         }
         function getRunningTotal(){
+            if(!vm.loggedIn) return "Log in to create an order.";
             var total = 0;
             for(idx in vm.plants){
                 if(vm.plants[idx].selected)
@@ -55,10 +63,36 @@
                     vm.plants[idx].category = !vm.plants[idx].category;
             }
         }
+        function getPlant(id){
+            var plants = vm.plants;
+            for(idx in plants){
+                if(plants[idx].id == id) return plants[idx];
+            }
+            return {};
+        }
         function setOrder(){
             OrderSvc.getOrders()
                 .then(function (ex) {
                     vm.order = ex.data[0];
+                    for(idx in vm.order.items){
+                        var item = vm.order.items[idx]
+                        var plant = getPlant(item.plant);
+                        plant.selected = true;
+                        if(plant.color_preference && plant.limit){
+                            for(colIdx in plant.colors){
+                                var color = plant.colors[colIdx]
+                                if(item.color == color.free_color){
+                                    color.orderId = item.id;
+                                    color.qty = item.qty;
+                                }
+                            }
+                        }
+                        else{
+                            plant.orderId = item.id;
+                            plant.qty = item.qty;
+                            plant.free_color = item.color;
+                        }
+                    }
                 })
         }
         function initialize()
@@ -92,6 +126,7 @@
         }
 
         function toggleOrderItem(plant){
+            if(!vm.loggedIn) return;
             var add = plant.selected;
 
             if(!plant.color_preference || !plant.limit) {

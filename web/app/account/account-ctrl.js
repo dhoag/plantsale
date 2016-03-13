@@ -1,10 +1,10 @@
 (function(){
     var mod = angular.module("account-mod", ["auth-mod"]);
 
-    Account.$inject = ["$scope", "Auth"];
+    Account.$inject = ["$scope", "Auth", "$location"];
     mod.controller("Account", Account);
 
-    function Account($scope, Auth){
+    function Account($scope, Auth, $location){
         var vm = this;
         vm.creds = { email: "", password: "" };
         vm.login = login;
@@ -27,6 +27,7 @@
             Auth.login(vm.creds)
                 .then(function(ex){
                     initialize();
+                    $location.path("/order");
                 })
                 .catch(function(ex){
                     console.log(ex);
@@ -36,6 +37,7 @@
         function logout(){
             Auth.logout();
             initialize();
+            $location.path("/");
         }
     }
 })();

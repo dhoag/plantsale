@@ -11,6 +11,11 @@
 
 			$routeProvider
 				.when("/404", {templateUrl: "app/components/404.html"})
+				.when("/order", {
+					templateUrl: "app/order/plants.html",
+					controller: "OrderBuilder",
+					controllerAs: "vm"
+				})
 				.when("/", {
 					templateUrl: "app/order/plants.html",
 					controller: "OrderBuilder",
