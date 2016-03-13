@@ -1,6 +1,6 @@
 (function(){
-    var orderMod = angular.module("order-svc", ['api-mod']);
-    orderMod.service("OrderSvc", OrderSvc);
+    angular.module("order-svc", ['api-mod'])
+        .service("OrderSvc", OrderSvc);
     OrderSvc.$inject = [ 'API', 'UrlGenerator'];
 
     function OrderSvc(){

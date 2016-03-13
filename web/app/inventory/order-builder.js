@@ -1,9 +1,9 @@
 (function () {
     angular.module('plantsale')
         .controller('OrderBuilder', OrderBuilder);
-    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc"];
+    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc", "$scope"];
 
-    function OrderBuilder(Auth, Inventory, OrderSvc) {
+    function OrderBuilder(Auth, Inventory, OrderSvc, $scope) {
         var vm = this;
         vm.searchText = "";
         vm.plants = [];
@@ -44,7 +44,11 @@
                 .then(function(ex){
                     vm.plants = ex;
                     vm.categories = Inventory.getCategories();
+                    $scope.$watch( vm.plants, changeHandler );
                 })
+        }
+        function changeHandler(ex){
+            console.log(ex);
         }
     }
 })();

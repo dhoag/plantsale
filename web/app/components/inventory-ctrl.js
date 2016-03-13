@@ -1,9 +1,9 @@
 (function () {
-    angular.module('plantsale')
+    angular.module('inventory-svc',['api-mod'])
         .service('Inventory', Inventory);
-    Inventory.$inject = ["Auth", "API", "UrlGenerator"];
+    Inventory.$inject = ["API", "UrlGenerator"];
 
-    function Inventory(Auth, API, UrlGenerator) {
+    function Inventory(API, UrlGenerator) {
         var svc = {
             getPlants: getPlants,
             getCategories: getCategories

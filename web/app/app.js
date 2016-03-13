@@ -2,7 +2,7 @@
 	'use strict';
  
 	var app = angular.module('plantsale', [ 'ngRoute', 'account-mod',
-		'site-mod', 'LocalStorageModule', 'order-svc' ]);
+		'site-mod', 'LocalStorageModule', 'inventory-svc', 'order-svc' ]);
 
 	app.config(["$routeProvider", "$locationProvider", "localStorageServiceProvider",
 		function ($routeProvider, $locationProvider, localStorageServiceProvider ) {
