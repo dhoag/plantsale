@@ -17,7 +17,8 @@
                 <div ng-if="(cat.name == plant.type && (plant.selected || plant.category))" class="checkbox" ng-click="vm.toggleOrder(plant.id)">
                     <label title="{{ plant.color_limits }}">
                         <input type="checkbox"
-                                ng-model="vm.plants[ plant.id -1 ].selected">{{ plant.name }}
+                                ng-model="plant.selected"
+                                ng-click="vm.toggleOrderItem(plant)">{{ plant.name }}
                     </label>
                 </div>
             </div>
