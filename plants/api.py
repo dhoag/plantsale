@@ -98,7 +98,9 @@ class Login(CurrentUserMixin, generics.RetrieveAPIView):
                 result = {
                     'token': token.key,
                     'email' : user.email,
-                    'id' :user.pk
+                    'id' :user.pk,
+                    'name' : user.name,
+                    'phone' : user.phone
                 }
 
                 return Response(result, status=status.HTTP_200_OK)

@@ -29,6 +29,8 @@ class Stakeholder(models.Model):
     objects = StakeholderManager()
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    name = models.CharField(max_length=128, blank=True, null=True)
 
     REQUIRED_FIELDS = ['password']
     USERNAME_FIELD = 'email'

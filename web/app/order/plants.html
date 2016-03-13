@@ -13,38 +13,58 @@
                 <p title="{{ cat.mkt }}" ng-click="vm.toggleCat(cat.name)" class="panel-header">
                     <span class="glyphicon glyphicon-collapse-down"></span>{{ cat.name }}</p>
 
-            <div ng-repeat="plant in vm.plants | filter:vm.searchText track by plant.id">
-                <div ng-if="(cat.name == plant.type && (plant.selected || plant.category))" class="checkbox" ng-click="vm.toggleOrder(plant.id)">
-                    <label title="{{ plant.color_limits }}">
-                        <input type="checkbox"
-                                ng-model="plant.selected"
-                                ng-click="vm.toggleOrderItem(plant)">{{ plant.name }}
-                    </label>
+                <div ng-repeat="plant in vm.plants | filter:vm.searchText track by plant.id">
+                    <div ng-if="(cat.name == plant.type && (plant.selected || plant.category))" class="checkbox"
+                         ng-click="vm.toggleOrder(plant.id)">
+                        <label title="{{ plant.color_limits }}">
+                            <input type="checkbox"
+                                   ng-model="plant.selected"
+                                   ng-click="vm.toggleOrderItem(plant)">{{ plant.name }}
+                        </label>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
     <div ng-if="!vm.loggedIn" class="col-xs-9 col-md-8">
         <div class="row">
-            <h3 >Welcome to the Mill Street Elementary Plant Sale</h3>
+            <h3>Welcome to the Mill Street Elementary Plant Sale</h3>
             <p>MAKE CHECKS PAYABLE TO: MILL STREET HOME & SCHOOL ASSOCIATION</p>
             <p>ORDERS <b>DUE BACK BY FRIDAY, APRIL 8th</b>, 2016!</p>
-            <p>Plant <b>pick-up is Sat. May 7</b>, 2016 from 10:00 AM - 12:00 PM  in front of Mill St. School.</p>
+            <p>Plant <b>pick-up is Sat. May 7</b>, 2016 from 10:00 AM - 12:00 PM in front of Mill St. School.</p>
 
-<p>**If there is something you want that is not listed here or have any conflict with the pick up times, please contact
-Sarah (sarah at gibsonenvironmental.com) or Laura (laura.thorne at comcast.net) and we'll see if we can help!!**</p>
+            <p>**If there is something you want that is not listed here or have any conflict with the pick up times,
+                please contact
+                Sarah (sarah at gibsonenvironmental.com) or Laura (laura.thorne at comcast.net) and we'll see if we can
+                help!!**</p>
 
-<p>If you would like to VOLUNTEER to help on May 2nd (unloading the truck & organizing the plants, etc.)
-anytime between 6:00am-12pm, please contact Sarah Hoag (sarah at gibsonenvironmental.com) or
-or Laura Thorne (laura.thorne at comcast.net) or let us know on your order.  Even if you only have
-an hour or two, we'd appreciate your help. (Volunteers get first choice of their own and any extra plants!!)</p>
-        <img class="pull-right" src="images/home_logo.png" />
+            <p>If you would like to VOLUNTEER to help on May 2nd (unloading the truck & organizing the plants, etc.)
+                anytime between 6:00am-12pm, please contact Sarah Hoag (sarah at gibsonenvironmental.com) or
+                or Laura Thorne (laura.thorne at comcast.net) or let us know on your order. Even if you only have
+                an hour or two, we'd appreciate your help. (Volunteers get first choice of their own and any extra
+                plants!!)</p>
+            <img class="pull-right" src="images/home_logo.png"/>
 
         </div>
     </div>
     <div class="col-xs-9 col-md-8">
-        <div class="row" ng-if="vm.loggedIn"><h2 class="pull-right">${{ vm.getRunningTotal().toFixed(2) }}</h2></div>
+        <div class="row" ng-if="vm.loggedIn">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="fullName">Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Jane Doe"
+                           ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
+                           ng-model="vm.user.name" >
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Phone</label>
+                    <input type="tel" class="form-control" id="telephone" placeholder="xxx-xxx-xxxx"
+                        ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
+                        ng-model="vm.user.phone" >
+                </div>
+            </form>
+            <h2 class="pull-right">${{ vm.getRunningTotal().toFixed(2) }}</h2>
+        </div>
         <div class="panel col-xs-6 panel-default fixed-panel"
              ng-if="plant.selected"
              ng-repeat="plant in vm.plants">
@@ -67,12 +87,12 @@ an hour or two, we'd appreciate your help. (Volunteers get first choice of their
             </div>
             <div ng-if="vm.loggedIn" class="panel-body">
                 <div ng-if="plant.limit">
-                        <div ng-repeat="color in plant.colors">
-                            <input class="col-xs-9" type="text" value="{{ color.free_color }}" disabled>
-                            <input class="col-xs-3" type="text" ng-model="color.qty"
-                                   ng-change="vm.updateQty(color)" ng-model-options="{debounce:1000}"
-                                   placeholder="0">
-                        </div>
+                    <div ng-repeat="color in plant.colors">
+                        <input class="col-xs-9" type="text" value="{{ color.free_color }}" disabled>
+                        <input class="col-xs-3" type="text" ng-model="color.qty"
+                               ng-change="vm.updateQty(color)" ng-model-options="{debounce:1000}"
+                               placeholder="0">
+                    </div>
                     <label class="notes" ng-if="plant.notes">{{ plant.notes }}</label>
                 </div>
                 <div ng-if="plant.color_preference && !plant.limit">
@@ -89,7 +109,7 @@ an hour or two, we'd appreciate your help. (Volunteers get first choice of their
                     <input id="qty{{ plant.id }}" class="col-xs-7" type="text" defaultValue="1"
                            ng-change="vm.updateQty(plant)" ng-model-options="{debounce:1000}"
                            ng-model="plant.qty">
-                    <label class="notes" ng-if="plant.description">{{ plant.description}}</label>
+                    <label class="notes" ng-if="plant.description">{{ plant.description }}</label>
                 </div>
             </div>
         </div>

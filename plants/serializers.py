@@ -19,11 +19,13 @@ class LoginSerializer(EmailLowercase, serializers.Serializer):
     password = serializers.CharField(required=True)
 
 
-class AccountSerializer(serializers.Serializer):
+class AccountSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField()
     email = serializers.CharField()
     token = serializers.CharField()
+    name = serializers.CharField()
+    phone = serializers.CharField()
 
 
 class OrderItemSerializer(serializers.ModelSerializer):

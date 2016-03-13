@@ -15,7 +15,9 @@
 
         function initialize(){
             $scope.loggedIn = Auth.isLoggedIn();
-            vm.email = Auth.getUser();
+            vm.user = Auth.getUser();
+            if(vm.user)
+                vm.email = vm.user.email;
         }
         function register(){
             Auth.register(vm.creds)

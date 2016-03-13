@@ -14,6 +14,7 @@
         vm.toggleOrderItem = toggleOrderItem;
         vm.updateQty = updateQty;
         vm.updateColor = updateColor;
+        vm.updateUser = updateUser;
         vm.orders = {};
         vm.categories = [];
         vm.loggedIn = Auth.isLoggedIn();
@@ -24,6 +25,9 @@
             initialize();
         }
 
+        function updateUser(){
+            console.log(vm.user);
+        }
         function updateColor(plant){
             if(!vm.loggedIn) return;
             OrderSvc.updateOrderItem(plant.orderId, { "color": plant.free_color})
@@ -97,6 +101,7 @@
         }
         function initialize()
         {
+            vm.user = Auth.getUser();
             Inventory.getPlants()
                 .then(function(ex){
                     vm.plants = ex;

@@ -16,7 +16,7 @@
         function postApi(path, data) {
             return API.$post(path, data)
                 .then(function (result) {
-                    localStorageService.set('user', data.email);
+                    localStorageService.set('user', result.data);
                     API.setAuthToken(result.data.token);
                     return result;
                 })

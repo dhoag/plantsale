@@ -10,7 +10,7 @@ app.get( "*.*", function( req, res, next )
 } );
 app.get( "*", function( req, res, next )
 {
-    res.status( 200 ).sendFile( __dirname + "/app/index.html" );
+    res.status( 200 ).sendFile( __dirname + "/index.html" );
 } );
 
 
