@@ -21,10 +21,8 @@
 
         function updateClock(){
             var t = getTimeRemaining(deadline);
-            vm.timeRemaining = 'Days: ' + t.days +
-                ' Hours: ' + t.hours +
-                ' Minutes: ' + t.minutes +
-                ' Seconds: ' + t.seconds;
+            vm.timeRemaining = '' + t.days + ' days, ' +
+                 t.hours + ' hours '+ t.minutes + ' minutes ' + t.seconds + ' seconds';
             if (t.total <= 0) {
                 $interval.cancel(timeinterval);
             }

@@ -1,0 +1,1 @@
+\copy plants_plant (name, description, cost, color_limits, color_preference, notes, sun, type, marketing, img_url) from 'plant_sale_data.csv' WITH CSV DELIMITER ',' HEADER;
