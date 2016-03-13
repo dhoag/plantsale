@@ -31,6 +31,8 @@ class Stakeholder(models.Model):
     is_staff = models.BooleanField(default=False)
     phone = models.CharField(max_length=15, blank=True, null=True)
     name = models.CharField(max_length=128, blank=True, null=True)
+    volunteer = models.BooleanField(default=False)
+    times = models.CharField(max_length=128, blank=True, null=True)
 
     REQUIRED_FIELDS = ['password']
     USERNAME_FIELD = 'email'

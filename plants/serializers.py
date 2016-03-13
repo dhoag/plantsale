@@ -26,7 +26,15 @@ class AccountSerializer(serializers.ModelSerializer):
     token = serializers.CharField()
     name = serializers.CharField()
     phone = serializers.CharField()
+    volunteer = serializers.BooleanField()
+    times = serializers.CharField()
 
+
+class StakeholderSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Stakeholder
+        fields = ('id', 'email', 'name', 'phone', 'volunteer', 'times')
 
 class OrderItemSerializer(serializers.ModelSerializer):
 

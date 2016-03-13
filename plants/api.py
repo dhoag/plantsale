@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login
-from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework.authtoken.models import Token
 from rest_framework import generics, views, status
@@ -9,7 +8,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 from models import Stakeholder, Plant, Order, OrderItem
-from serializers import AccountSerializer, LoginSerializer, PlantSerializer, OrderSerializer, OrderItemSerializer
+from serializers import AccountSerializer, LoginSerializer, PlantSerializer, OrderSerializer, \
+    OrderItemSerializer, StakeholderSerializer
 
 
 class CurrentUserMixin(object):
@@ -72,10 +72,18 @@ class Register( generics.CreateAPIView):
         result = {
             'token': token.key,
             'email': stk.email,
-            'id' : stk.pk
+            'id' : stk.pk,
+            'volunteer': False
         }
 
         return Response(result, status=status.HTTP_200_OK)
+
+
+class UpdateAccount(CurrentUserMixin, generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    model = Stakeholder
+    serializer_class = StakeholderSerializer
+    queryset = Stakeholder.objects.all()
 
 
 class Login(CurrentUserMixin, generics.RetrieveAPIView):
@@ -98,9 +106,11 @@ class Login(CurrentUserMixin, generics.RetrieveAPIView):
                 result = {
                     'token': token.key,
                     'email' : user.email,
-                    'id' :user.pk,
+                    'id' : user.pk,
                     'name' : user.name,
-                    'phone' : user.phone
+                    'phone' : user.phone,
+                    'volunteer' : user.voluntter,
+                    'times': user.times
                 }
 
                 return Response(result, status=status.HTTP_200_OK)
