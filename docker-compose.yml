@@ -4,6 +4,8 @@ proxy:
     ports:
         - 80:80
         - 443:443
+    volumes: 
+        - /var/run/docker.sock:/tmp/docker.sock
 db:
     image: postgres
     restart: always
