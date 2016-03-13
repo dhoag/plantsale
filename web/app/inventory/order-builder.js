@@ -12,10 +12,19 @@
         vm.getTotal = getTotal;
         vm.getRunningTotal = getRunningTotal;
         vm.toggleOrderItem = toggleOrderItem;
+        vm.updateQty = updateQty;
         vm.orders = {};
         vm.categories = [];
         vm.loggedIn = Auth.isLoggedIn();
         initialize();
+
+        function updateQty(plant){
+            OrderSvc.updateOrderItem(plant.orderId, { "qty": plant.qty })
+                .catch(function(ex){
+                    toastr.error("Please reload to ensure quantity update updated.");
+                });
+
+        }
         function getRunningTotal(){
             var total = 0;
             for(idx in vm.plants){

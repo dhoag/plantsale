@@ -64,6 +64,7 @@
                 <div ng-if="!plant.color_preference">
                     <label for="qty{{ plant.id }}" class="col-xs-5">Qty:</label>
                     <input id="qty{{ plant.id }}" class="col-xs-7" type="text" defaultValue="1"
+                           ng-change="vm.updateQty(plant)" ng-model-options="{debounce:1000}"
                            ng-model="plant.qty">
                     <label class="notes" ng-if="plant.description">{{ plant.description}}</label>
                 </div>
