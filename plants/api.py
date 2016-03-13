@@ -109,7 +109,7 @@ class Login(CurrentUserMixin, generics.RetrieveAPIView):
                     'id' : user.pk,
                     'name' : user.name,
                     'phone' : user.phone,
-                    'volunteer' : user.voluntter,
+                    'volunteer' : user.volunteer,
                     'times': user.times
                 }
 

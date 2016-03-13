@@ -26,7 +26,11 @@
         }
 
         function updateUser(){
-            console.log(vm.user);
+            var data = {
+                name: vm.user.name,
+                phone: vm.user.phone
+            };
+            Auth.updateAccount(data);
         }
         function updateColor(plant){
             if(!vm.loggedIn) return;

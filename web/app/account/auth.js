@@ -8,8 +8,13 @@
             logout: logout,
             getUser: getUser,
             register: register,
-            isLoggedIn: isLoggedIn
+            isLoggedIn: isLoggedIn,
+            updateAccount: updateAccount
         };
+
+        function updateAccount(data){
+            return API.$patch( UrlGenerator.user.account(getUser().id), data);
+        }
         function isLoggedIn(){
             return API.getAuthToken() != null;
         }

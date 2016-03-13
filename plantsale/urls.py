@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^api/order/?$', api.GetOrder.as_view(), name='order',),
     url(r'^api/order/items/?$', api.Items.as_view(), name='list_items',),
     url(r'^api/order/item/(?P<pk>\d+)/?$', api.UpdateOrderItem.as_view(), name='update_item',),
+    url(r'^api/account/(?P<pk>\d+)/?$', api.UpdateAccount.as_view(), name='update_account',),
 ]
