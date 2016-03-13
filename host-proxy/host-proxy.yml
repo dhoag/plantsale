@@ -1,0 +1,9 @@
+nginxproxy: 
+    image: nexttier/host-proxy
+    ports: 
+        - 80:80
+        - 443:443
+    restart: always
+    volumes: 
+        - /var/run/docker.sock:/tmp/docker.sock
+
