@@ -18,14 +18,13 @@
         vm.orders = {};
         vm.categories = [];
         vm.loggedIn = Auth.isLoggedIn();
-        if(vm.loggedIn && !/order/.test($location.path())) {
+        if (vm.loggedIn && !/order/.test($location.path())) {
             $location.path("/order");
         }
         else {
             initialize();
         }
-
-        function updateUser(){
+        function updateUser() {
             var data = {
                 name: vm.user.name,
                 phone: vm.user.phone,
@@ -34,70 +33,77 @@
             };
             Auth.updateAccount(data);
         }
-        function updateColor(plant){
-            if(!vm.loggedIn) return;
-            OrderSvc.updateOrderItem(plant.orderId, { "color": plant.free_color})
-                .catch(function(ex){
+
+        function updateColor(plant) {
+            if (!vm.loggedIn) return;
+            OrderSvc.updateOrderItem(plant.orderId, {"color": plant.free_color})
+                .catch(function (ex) {
                     toastr.error("Please reload to ensure quantity update updated.");
                 });
         }
-        function updateQty(plant){
-            if(!vm.loggedIn) return;
-            OrderSvc.updateOrderItem(plant.orderId, { "qty": plant.qty })
-                .catch(function(ex){
+
+        function updateQty(plant) {
+            if (!vm.loggedIn) return;
+            OrderSvc.updateOrderItem(plant.orderId, {"qty": plant.qty})
+                .catch(function (ex) {
                     toastr.error("Please reload to ensure quantity update updated.");
                 });
         }
-        function getRunningTotal(){
-            if(!vm.loggedIn) return "Log in to create an order.";
+
+        function getRunningTotal() {
+            if (!vm.loggedIn) return "Log in to create an order.";
             var total = 0;
-            for(idx in vm.plants){
-                if(vm.plants[idx].selected)
+            for (idx in vm.plants) {
+                if (vm.plants[idx].selected)
                     total += getTotal(vm.plants[idx]);
             }
             return total;
         }
-        function getTotal(plant){
-            if(plant.limit) {
+
+        function getTotal(plant) {
+            if (plant.limit) {
                 var total = 0;
-                for(var idx in plant.colors){
-                    total += (plant.colors[idx].qty *1);
+                for (var idx in plant.colors) {
+                    total += (plant.colors[idx].qty * 1);
                 }
                 return total * plant.cost;
             }
             return plant.qty * plant.cost;
         }
-        function toggleCat(category){
-            for(var idx in vm.plants){
-                if(vm.plants[idx].type == category)
+
+        function toggleCat(category) {
+            for (var idx in vm.plants) {
+                if (vm.plants[idx].type == category)
                     vm.plants[idx].category = !vm.plants[idx].category;
             }
         }
-        function getPlant(id){
+
+        function getPlant(id) {
             var plants = vm.plants;
-            for(idx in plants){
-                if(plants[idx].id == id) return plants[idx];
+            for (idx in plants) {
+                if (plants[idx].id == id) return plants[idx];
             }
             return {};
         }
-        function setOrder(){
+
+        function setOrder() {
             OrderSvc.getOrders()
                 .then(function (ex) {
                     vm.order = ex.data[0];
-                    for(idx in vm.order.items){
+                    for (idx in vm.order.items) {
                         var item = vm.order.items[idx]
                         var plant = getPlant(item.plant);
                         plant.selected = true;
-                        if(plant.color_preference && plant.limit){
-                            for(colIdx in plant.colors){
+                        if (plant.color_preference && plant.limit) {
+                            for (colIdx in plant.colors) {
                                 var color = plant.colors[colIdx]
-                                if(item.color == color.free_color){
+                                if (item.color == color.free_color) {
                                     color.orderId = item.id;
                                     color.qty = item.qty;
                                 }
                             }
                         }
-                        else{
+                        else {
                             plant.orderId = item.id;
                             plant.qty = item.qty;
                             plant.free_color = item.color;
@@ -105,14 +111,14 @@
                     }
                 })
         }
-        function initialize()
-        {
+
+        function initialize() {
             vm.user = Auth.getUser();
             Inventory.getPlants()
-                .then(function(ex){
+                .then(function (ex) {
                     vm.plants = ex;
                     vm.categories = Inventory.getCategories();
-                    if(vm.loggedIn) {
+                    if (vm.loggedIn) {
                         setOrder();
                     }
                 })
@@ -124,7 +130,7 @@
                 qty: plant.qty,
                 plant: plant.id
             };
-            if(plant.free_color){
+            if (plant.free_color) {
                 data['color'] = plant.free_color;
             }
             OrderSvc.addOrderItem(data)
@@ -136,19 +142,19 @@
                 })
         }
 
-        function toggleOrderItem(plant){
-            if(!vm.loggedIn) return;
+        function toggleOrderItem(plant) {
+            if (!vm.loggedIn) return;
             var add = plant.selected;
 
-            if(!plant.color_preference || !plant.limit) {
-                if(add)
+            if (!plant.color_preference || !plant.limit) {
+                if (add)
                     addItem(plant);
                 else
                     removeItem(plant);
             }
-            else{
-                for(idx in plant.colors){
-                    if(add)
+            else {
+                for (idx in plant.colors) {
+                    if (add)
                         addItem(plant.colors[idx]);
                     else
                         removeItem(plant.colors[idx]);

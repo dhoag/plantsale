@@ -1,17 +1,53 @@
 (function(){
     var mod = angular.module("account-mod", ["auth-mod"]);
 
-    Account.$inject = ["$scope", "Auth", "$location"];
+    Account.$inject = ["$scope", "Auth", "$location", "$interval"];
     mod.controller("Account", Account);
 
-    function Account($scope, Auth, $location){
+    function Account($scope, Auth, $location, $interval){
         var vm = this;
         vm.creds = { email: "", password: "" };
         vm.login = login;
         vm.register = register;
         vm.logout = logout;
+        vm.timeRemaining = 0;
 
         initialize();
+
+        var deadline = '2016-04-08';
+        var timeinterval;
+        updateClock();
+        startClock();
+
+        function updateClock(){
+            var t = getTimeRemaining(deadline);
+            vm.timeRemaining = 'Days: ' + t.days +
+                ' Hours: ' + t.hours +
+                ' Minutes: ' + t.minutes +
+                ' Seconds: ' + t.seconds;
+            if (t.total <= 0) {
+                $interval.cancel(timeinterval);
+            }
+        }
+        function startClock() {
+            timeinterval = $interval( updateClock, 1000);
+        }
+
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
+        }
+
 
         function initialize(){
             $scope.loggedIn = Auth.isLoggedIn();
