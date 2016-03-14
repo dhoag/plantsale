@@ -57,6 +57,7 @@
             Auth.register(vm.creds)
                 .then(function(ex){
                     initialize();
+                    $location.path("/order");
                 })
         }
         function login(){
