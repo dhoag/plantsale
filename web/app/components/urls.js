@@ -1,14 +1,17 @@
 (function(){
     var apiMod = angular.module("api-mod");
     apiMod.service("UrlGenerator", UrlGenerator);
-    function UrlGenerator(){
+    UrlGenerator.$inject = ["$location"];
+    function UrlGenerator($location){
         var urls = {};
         initUrls(urls);
         return urls;
 
         function initUrls(urls){
-            //var apiRoot = "/api/";
             var apiRoot = "http://localhost:8000/api/";
+            if( /millst/.test($location.host()) ){
+                 apiRoot = "/api/";
+            }
             urls.inventory = {
                 plants: function(){ return apiRoot + "inventory/"}
             };
