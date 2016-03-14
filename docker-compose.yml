@@ -17,6 +17,8 @@ db:
 api:
     image: plant-api
     restart: always
+    environment:
+       - DATABASE_URL=postgres://docker:docker@db/docker
     ports:
         - 80
     links:
@@ -26,5 +28,8 @@ web:
     restart: always
     links: 
         - api 
+    environment:
+       - VIRTUAL_HOST=www.millstplantsale.com,millstplantsale.com
     ports:
         - 8080
+        - 80
