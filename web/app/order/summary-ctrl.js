@@ -1,14 +1,15 @@
 (function(){
     angular.module('plantsale')
         .controller('Summary', Summary);
-    Summary.$inject = ["Auth", "OrderSvc", "Inventory"];
+    Summary.$inject = ["Auth", "OrderSvc", "Inventory", "StripeSvc"];
 
-    function Summary(Auth,OrderSvc, Inventory) {
+    function Summary(Auth,OrderSvc, Inventory, StripeSvc) {
         var vm = this;
         vm.orders = [];
         vm.user;
         vm.removeItem = removeItem;
         vm.updateItemQty = updateItemQty;
+        vm.payWithStripe = payWithStripe;
         vm.totalCost = 0;
 
         if(!Auth.isLoggedIn()){
@@ -16,6 +17,9 @@
         }
         vm.user = Auth.getUser();
         initialize();
+        function payWithStripe(){
+            StripeSvc.promptForPayment(vm.user.email, vm.totalCost);
+        }
         function updateItemQty(item){
             console.log(item.newQty);
             OrderSvc.updateOrderItem(item.id, {"qty": item.newQty})

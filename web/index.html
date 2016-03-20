@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
     <link rel="stylesheet" href="plantsale.css" />
+
+    <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> -->
+    <script src="https://checkout.stripe.com/checkout.js"></script>
 </head>
 
 <body ng-controller="Site" ng-class="{ 'logged-in': loggedIn }" >
@@ -24,11 +27,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   -->
+
   <script src="app/core.min.js"></script>
   <script src="app/components/api-mod.js"></script>
   <script src="app/components/api.js"></script>
   <script src="app/components/urls.js"></script>
   <script src="app/components/order-svc.js"></script>
+  <script src="app/components/stripe-svc.js"></script>
   <script src="app/account/auth.js"></script>
   <script src="app/account/account-ctrl.js"></script>
   <script src="app/components/inventory-ctrl.js"></script>

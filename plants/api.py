@@ -1,11 +1,14 @@
 from __future__ import unicode_literals
 
+from urllib3 import request
 from django.contrib.auth import authenticate, login
 
 from rest_framework.authtoken.models import Token
 from rest_framework import generics, views, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+
+import stripe
 
 from models import Stakeholder, Plant, Order, OrderItem
 from serializers import AccountSerializer, LoginSerializer, PlantSerializer, OrderSerializer, \
@@ -22,6 +25,31 @@ class CurrentUserMixin(object):
 
     def get_object(self):
         return self.get_queryset()
+
+class PayOrder( generics.UpdateAPIView, CurrentUserMixin):
+    permission_classes = [IsAuthenticated]
+    model = Order
+    serializer_class = OrderSerializer
+
+    def post(self, pk):
+        # Set your secret key: remember to change this to your live secret key in production
+        # See your keys here https://dashboard.stripe.com/account/apikeys
+        stripe.api_key = "sk_test_zjKOcAlbiR2ltU6xo9E7FBGK"
+
+        # Get the credit card details submitted by the form
+        token = request.POST['stripeToken']
+
+        # Create the charge on Stripe's servers - this will charge the user's card
+        try:
+          charge = stripe.Charge.create(
+              amount=2000, # amount in cents, again
+              currency="usd",
+              source=token,
+              description="Example charge"
+          )
+        except stripe.error.CardError, e:
+          # The card has been declined
+          pass
 
 
 class GetOrder( generics.ListCreateAPIView, CurrentUserMixin):

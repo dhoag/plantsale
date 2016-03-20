@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
  
-	var app = angular.module('plantsale', [ 'ngRoute', 'account-mod',
+	var app = angular.module('plantsale', [ 'ngRoute', 'account-mod', 'stripe-svc',
 		'site-mod', 'LocalStorageModule', 'inventory-svc', 'order-svc' ]);
 
 	app.config(["$routeProvider", "$locationProvider", "localStorageServiceProvider",
