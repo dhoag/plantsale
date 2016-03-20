@@ -74,7 +74,11 @@
                            ng-model="vm.user.times">
                 </div>
             </form>
-            <h2 class="pull-right">Total order cost: ${{ vm.getRunningTotal().toFixed(2) }}</h2>
+            <span class="pull-right">
+
+            <h2 class="">Total order cost: ${{ vm.getRunningTotal().toFixed(2) }}
+                <a class="btn btn-primary" href="/summary">Summary View and Checkout</a></h2>
+            </span>
         </div>
         <div class="panel col-xs-6 panel-default fixed-panel"
              ng-if="plant.selected"
