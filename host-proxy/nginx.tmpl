@@ -112,34 +112,14 @@ upstream {{ $host }} {
 {{ end }}
 }
 
-                                                                                                                                                                     
 server {
-   server_name {{ $host }};
    listen 80;
-   location / {
-      proxy_pass http://{{ $host }};
-   }
+   server_name {{ $host }};
+   return 302 https://$host$request_uri;
 }
-
 server {
    server_name {{ $host }};
    listen 8080;
-
-   location / {
-
-   {{ range $container := $containers }}
-      {{ range $address := $container.Addresses }}
-         {{ if eq $address.Port "8080" }}
-         proxy_pass http://{{ $host }};
-         {{ end }}
-      {{ end }}
-   {{ end }}
-   }
-}
-{{ else }}
-
-server {
-   server_name {{ $host }};
    location / {
       proxy_pass http://{{ $host }};
    }
