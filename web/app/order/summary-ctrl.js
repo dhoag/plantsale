@@ -18,7 +18,7 @@
         vm.user = Auth.getUser();
         initialize();
         function payWithStripe(){
-            StripeSvc.promptForPayment(vm.user.email, vm.totalCost);
+            StripeSvc.promptForPayment(vm.user.email, vm.totalCost, vm.orders[0]);
         }
         function updateItemQty(item){
             console.log(item.newQty);

@@ -22,6 +22,7 @@
             urls.user = {
                 account: function(id){ return apiRoot + "account/" + id + "/" },
                 orders : function(){ return apiRoot + "order/" },
+                pay: function(id){ return apiRoot + "order/pay/" + id + "/" },
                 addItem: function(){ return apiRoot + "order/items" },
                 updateItem: function(id){ return apiRoot + "order/item/" + id + "/" }
             }

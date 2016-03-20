@@ -91,6 +91,8 @@ class Order(models.Model):
 
     done = models.BooleanField(default=False)
     stakeholder = models.ForeignKey(Stakeholder, related_name="orders", on_delete=models.CASCADE )
+    charge_data = models.CharField(max_length=100, blank=True, null=True)
+    charge_date = models.DateTimeField(blank=True, null=True);
 
     @property
     def last_updated(self):

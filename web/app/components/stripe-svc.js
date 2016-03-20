@@ -11,16 +11,22 @@
         };
         return svc;
 
-        function sendCharge(token){
-            console.log(token);
-            // You can access the token ID with `token.id`
+        function getChargeFunction(order){
+           return function(token){
+               var data = { token: token.id };
+               API.$post(UrlGenerator.user.pay(order.id), data)
+                   .catch(function(ex){
+                       console.log(ex);
+                       toastr.error('There was a problem with the charge' );
+                   });
+           }
         }
-        function promptForPayment(email, amt){
+        function promptForPayment(email, amt, order){
             var handler = StripeCheckout.configure({
                 key: 'pk_test_gqdFo96Puw0yTTshH1rHadu0',
                 image: "http://www.naperville203.org/cms/lib07/IL01904881/Centricity/Template/GlobalAssets/images/logos/mustang.jpg",
                 locale: 'auto',
-                token: sendCharge,
+                token: getChargeFunction(order),
                 email: email
             });
             handler.open({
