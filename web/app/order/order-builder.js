@@ -90,6 +90,10 @@
             OrderSvc.getOrders()
                 .then(function (ex) {
                     vm.order = ex.data[0];
+                    if(vm.order.done){
+                        $location.path("/summary");
+                        return;
+                    }
                     for (idx in vm.order.items) {
                         var item = vm.order.items[idx]
                         var plant = getPlant(item.plant);

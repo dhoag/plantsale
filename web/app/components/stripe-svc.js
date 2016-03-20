@@ -15,6 +15,9 @@
            return function(token){
                var data = { token: token.id };
                API.$post(UrlGenerator.user.pay(order.id), data)
+                   .then(function(response){
+                       order.done = response.data.done;
+                   })
                    .catch(function(ex){
                        console.log(ex);
                        toastr.error('There was a problem with the charge' );
@@ -27,7 +30,8 @@
                 image: "http://www.naperville203.org/cms/lib07/IL01904881/Centricity/Template/GlobalAssets/images/logos/mustang.jpg",
                 locale: 'auto',
                 token: getChargeFunction(order),
-                email: email
+                email: email,
+                allowRememberMe: false
             });
             handler.open({
                 name: 'Mill St Plant Sale',

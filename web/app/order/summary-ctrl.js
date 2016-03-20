@@ -6,7 +6,8 @@
     function Summary(Auth,OrderSvc, Inventory, StripeSvc) {
         var vm = this;
         vm.orders = [];
-        vm.user;
+        vm.currentOrder = null;
+        vm.user = null;
         vm.removeItem = removeItem;
         vm.updateItemQty = updateItemQty;
         vm.payWithStripe = payWithStripe;
@@ -18,7 +19,7 @@
         vm.user = Auth.getUser();
         initialize();
         function payWithStripe(){
-            StripeSvc.promptForPayment(vm.user.email, vm.totalCost, vm.orders[0]);
+            StripeSvc.promptForPayment(vm.user.email, vm.totalCost, vm.currentOrder);
         }
         function updateItemQty(item){
             console.log(item.newQty);
@@ -29,7 +30,7 @@
             updateTotal();
         }
         function updateTotal(){
-            var items = vm.orders[0].items;
+            var items = vm.currentOrder.items;
             var runningCosts = 0;
             for(i in items){
                 console.log(items[i].plantObj);
@@ -56,9 +57,9 @@
             OrderSvc.getOrders()
                 .then(function (ex) {
                     vm.orders = ex.data;
-                    var firstOrder = ex.data[0];
-                    for(i in firstOrder.items ){
-                        var item = firstOrder.items[i];
+                    vm.currentOrder = ex.data[0];
+                    for(i in vm.currentOrder.items ){
+                        var item = vm.currentOrder.items[i];
                         item.newQty = item.qty;
                         addPlant(item);
                     }

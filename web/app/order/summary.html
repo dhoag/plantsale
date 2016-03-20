@@ -7,25 +7,29 @@
     <table style="margin-top: 35px;" class="table table-responsive">
         <thead><th>Name</th><th>Color</th><th>Quantity</th><th>Price</th>
         <th>Line Item Cost</th>
-        <th>Delete</th></thead>
+        <th ng-if="!vm.currentOrder.done">Delete</th></thead>
         <tr ng-if="item.qty != 0" ng-repeat="item in vm.orders[0].items">
             <td>{{ item.plantObj.name }}</td>
             <td>{{ item.color }}</td>
-            <td><form>
+            <td><form ng-if="!vm.currentOrder.done">
                 <input style="max-width: 35px" type="text"
                        ng-model-options="{debounce:1000}" ng-model="item.newQty" ng-change="vm.updateItemQty(item)">
                 </form>
+                <span ng-if="vm.currentOrder.done">{{ item.qty }}</span>
             </td>
             <td>${{ item.plantObj.cost }} each</td>
             <td>${{ item.newQty * item.plantObj.cost }}</td>
-            <td>
+            <td ng-if="!vm.currentOrder.done">
                <button class="btn btn-danger" ng-click="vm.removeItem(item)">Delete</button>
             </td>
         </tr>
-        <tr><td><a class="btn btn-primary" href="/order">Add more items</a></td></tr>
+        <tr ng-if="!vm.currentOrder.done">
+            <td><a class="btn btn-primary" href="/order">Add more items</a></td>
+        </tr>
     </table>
     <div class="panel-body pull-right">
         <h1>Total Order Cost: ${{  vm.totalCost }}<h1>
-        <button class="btn btn-primary pull-right" ng-click="vm.payWithStripe()">Finalize Order</button>
+        <button ng-if="!vm.currentOrder.done" class="btn btn-primary pull-right"
+                ng-click="vm.payWithStripe()" ng-disabled="vm.totalCost == 0">Finalize Order</button>
     </div>
 </div>
