@@ -12,13 +12,13 @@ db:
     ports:
         - 5555:5432
     environment:
-        POSTGRES_PASSWORD: docker
+        POSTGRES_PASSWORD: dodocker
         POSTGRES_USER: docker
 api:
     image: plant-api
     restart: always
     environment:
-       - DATABASE_URL=postgres://docker:docker@db/docker
+       - DATABASE_URL=postgres://docker:dodocker@db/docker
     ports:
         - 80
     links:

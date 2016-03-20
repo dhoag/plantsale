@@ -1,11 +1,12 @@
 (function () {
     angular.module('inventory-svc',['api-mod'])
         .service('Inventory', Inventory);
-    Inventory.$inject = ["API", "UrlGenerator"];
+    Inventory.$inject = ["API", "UrlGenerator", "$q"];
 
-    function Inventory(API, UrlGenerator) {
+    function Inventory(API, UrlGenerator, $q) {
         var svc = {
             getPlants: getPlants,
+            getPlant: getPlant,
             getCategories: getCategories
         };
         var categories = [];
@@ -15,8 +16,24 @@
         function getCategories(){
             return categories;
         }
+        function lookupById(id){
+            for(i in plants){
+                if(plants[i].id == id) return plants[i];
+            }
+            return null;
+        }
+        function getPlant(id){
+            return getPlants().then(
+                function(){
+                    return lookupById(id);
+                }
+            )
+        }
         function getPlants()
         {
+            if(plants.length > 0){
+                return $q.when(plants);
+            }
             return API.$get(UrlGenerator.inventory.plants())
                 .then(function (results) {
                     plants = results.data;

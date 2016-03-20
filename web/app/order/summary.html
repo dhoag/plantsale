@@ -1,0 +1,31 @@
+<div class="container">
+    <div style="margin-left: 50px; top: 0; position: absolute">
+        <h2>{{ vm.user.name }}  {{ vm.user.phone }}</h2>
+        <h3>
+        <span ng-if="vm.user.volunteer">I want to volunteer for {{ vm.user.times }} </span></h3>
+    </div>
+    <table style="margin-top: 35px;" class="table table-responsive">
+        <thead><th>Name</th><th>Color</th><th>Quantity</th><th>Price</th>
+        <th>Line Item Cost</th>
+        <th>Delete</th></thead>
+        <tr ng-if="item.qty != 0" ng-repeat="item in vm.orders[0].items">
+            <td>{{ item.plantObj.name }}</td>
+            <td>{{ item.color }}</td>
+            <td><form>
+                <input style="max-width: 35px" type="text"
+                       ng-model-options="{debounce:1000}" ng-model="item.newQty" ng-change="vm.updateItemQty(item)">
+                </form>
+            </td>
+            <td>${{ item.plantObj.cost }} each</td>
+            <td>${{ item.newQty * item.plantObj.cost }}</td>
+            <td>
+               <button class="btn btn-danger" ng-click="vm.removeItem(item)">Delete</button>
+            </td>
+        </tr>
+        <tr><td><a class="btn btn-primary" href="/order">Add more items</a></td></tr>
+    </table>
+    <div class="panel-body pull-right">
+        <h1>Total Order Cost: ${{  vm.totalCost }}<h1>
+            <button class="btn btn-primary pull-right">Finalize Order</button>
+    </div>
+</div>

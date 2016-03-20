@@ -21,6 +21,11 @@
 					controller: "OrderBuilder",
 					controllerAs: "vm"
 				})
+				.when("/summary",{
+					templateUrl: "app/order/summary.html",
+					controller: "Summary",
+					controllerAs: "vm"
+				})
 				.otherwise({redirectTo: '/'});
 
               localStorageServiceProvider
