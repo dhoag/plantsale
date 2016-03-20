@@ -100,6 +100,13 @@ class Order(models.Model):
            return item.updated
         return datetime.now()
 
+    def get_total(self):
+        cost = 0
+        for item in self.items.all():
+            cost += item.qty * item.plant.cost
+        return cost
+
+
 class OrderItem(models.Model):
 
     plant = models.ForeignKey(Plant)

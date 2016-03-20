@@ -38,7 +38,7 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
         stripe.api_key = "sk_test_zjKOcAlbiR2ltU6xo9E7FBGK"
 
         # Get the credit card details submitted by the form
-        token = request.DATA['token']
+        token = request.data['token']
         order_id = kwargs['order_id']
 
         order = Order.objects.get(id=order_id)
@@ -48,12 +48,16 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
         # Create the charge on Stripe's servers - this will charge the user's card
         try:
             charge = stripe.Charge.create(
-                    amount=2000,  # amount in cents, again
+                    amount=int(order.get_total() * 100),  # amount in cents, again
                     currency="usd",
                     source=token,
-                    description="Example charge"
+                    description="Charge for " + str(self.request.user.email),
+                    metadata={ "order_id": order.id,
+                               "customer" : self.request.user.email },
+                    receipt_email = self.request.user.email,
+                    statement_descriptor = "Mill St H&S PlantSale"
             )
-            order.charge_data = charge
+            order.charge_data = charge.status
             order.charge_date = datetime.now()
             order.done = True
             order.save()
