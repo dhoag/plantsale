@@ -1,10 +1,12 @@
+<button class="pull-right" onclick="window.print()"><i class="fa fa-print" ></i>
+</button>
 <div class="container">
     <div style="margin-left: 50px; top: 0; position: absolute">
         <h2>{{ vm.user.name }}  {{ vm.user.phone }}</h2>
         <h3>
         <span ng-if="vm.user.volunteer">I want to volunteer for {{ vm.user.times }} </span></h3>
     </div>
-    <table style="margin-top: 35px;" class="table table-responsive">
+    <table style="margin-top: 75px;" class="table table-responsive">
         <thead><th>Name</th><th>Color</th><th>Quantity</th><th>Price</th>
         <th>Line Item Cost</th>
         <th ng-if="!vm.currentOrder.done">Delete</th></thead>
@@ -31,5 +33,8 @@
         <h1>Total Order Cost: ${{  vm.totalCost }}<h1>
         <button ng-if="!vm.currentOrder.done" class="btn btn-primary pull-right"
                 ng-click="vm.payWithStripe()" ng-disabled="vm.totalCost == 0">Finalize Order</button>
+    </div>
+    <div ng-if="vm.currentOrder.done">
+        <h3>Thank you very much for your order and ongoing support of Mill St. Home & School</h3>
     </div>
 </div>

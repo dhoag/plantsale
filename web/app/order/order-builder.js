@@ -1,9 +1,9 @@
 (function () {
     angular.module('plantsale')
         .controller('OrderBuilder', OrderBuilder);
-    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc", "$location"];
+    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc", "$location", "$interval"];
 
-    function OrderBuilder(Auth, Inventory, OrderSvc, $location) {
+    function OrderBuilder(Auth, Inventory, OrderSvc, $location, $interval) {
         var vm = this;
         vm.order = null;
         vm.searchText = "";
@@ -18,11 +18,43 @@
         vm.orders = {};
         vm.categories = [];
         vm.loggedIn = Auth.isLoggedIn();
+        var deadline = '2016-04-08';
+        var timeinterval;
+        vm.timeRemaining = 0;
+        updateClock();
+        startClock();
         if (vm.loggedIn && !/order/.test($location.path())) {
             $location.path("/order");
         }
         else {
             initialize();
+        }
+
+        function updateClock(){
+            var t = getTimeRemaining(deadline);
+            vm.timeRemaining = '' + t.days + ' days, ' +
+                 t.hours + ' hours '+ t.minutes + ' minutes ' + t.seconds + ' seconds';
+            if (t.total <= 0) {
+                $interval.cancel(timeinterval);
+            }
+        }
+        function startClock() {
+            timeinterval = $interval( updateClock, 1000);
+        }
+
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
         }
         function updateUser() {
             var data = {
