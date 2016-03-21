@@ -59,6 +59,14 @@
                     initialize();
                     $location.path("/order");
                 })
+                .catch(function(ex){
+                    if(ex.data.detail){
+                        toastr.error(ex, "Account already exists.");
+                    }
+                    else {
+                        toastr.error(ex, "Failed to register account");
+                    }
+                })
         }
         function login(){
             Auth.login(vm.creds)

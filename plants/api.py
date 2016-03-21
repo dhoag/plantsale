@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from urllib3 import request
 from datetime import datetime
 from django.contrib.auth import authenticate, login
+from django.db import IntegrityError
 
 from rest_framework.authtoken.models import Token
 from rest_framework import generics, views, status
@@ -109,18 +110,22 @@ class Register(generics.CreateAPIView):
     serializer_class = AccountSerializer
 
     def post(self, request):
-        stk = Stakeholder.objects.create_user(email=request.data['email'])
-        stk.set_password(request.data['password'])
-        stk.save()
-        token = Token.objects.create(user=stk)
-        result = {
-            'token': token.key,
-            'email': stk.email,
-            'id': stk.pk,
-            'volunteer': False
-        }
+        try:
+            stk = Stakeholder.objects.create_user(email=request.data['email'])
+            stk.set_password(request.data['password'])
+            stk.save()
+            token = Token.objects.create(user=stk)
+            result = {
+                'token': token.key,
+                'email': stk.email,
+                'id': stk.pk,
+                'volunteer': False
+            }
 
-        return Response(result, status=status.HTTP_200_OK)
+            return Response(result, status=status.HTTP_200_OK)
+        except IntegrityError as e:
+            return Response({'detail':e.message}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class UpdateAccount(CurrentUserMixin, generics.RetrieveUpdateDestroyAPIView):
