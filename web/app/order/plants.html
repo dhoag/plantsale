@@ -77,8 +77,10 @@
             <span class="pull-right">
 
             <h2 class="">Total order cost: ${{ vm.getRunningTotal().toFixed(2) }}
-                <a ng-if="userDetails.$invalid" class="btn btn-primary" ng-disabled="userDetails.$invalid" href="/order">Summary View and Checkout</a></h2>
+                <span ng-if="userDetails.$invalid"
+                      class="btn btn-primary" ng-disabled="userDetails.$invalid">Summary View and Checkout</span>
                 <a ng-if="!userDetails.$invalid" class="btn btn-primary" href="/summary">Summary View and Checkout</a></h2>
+            </h2>
             </span>
         </div>
         <div class="panel col-xs-6 panel-default fixed-panel"
