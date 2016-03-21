@@ -8,15 +8,16 @@
             </div>
         </div>
         <div class="pull-left">Time Left to Order: {{ account.timeRemaining }}</div>
-        <form ng-if="!loggedIn" class="navbar-form navbar-right" >
+        <form name="signUp" ng-if="!loggedIn" class="navbar-form navbar-right" >
             <fieldset class="form-group">
                 <input type="email" class="form-control" placeholder="Email Address" ng-model="account.creds.email" required>
             </fieldset>
             <fieldset class="form-group">
                 <input type="password" class="form-control" placeholder="Password" ng-model="account.creds.password" required>
             </fieldset>
-            <button class="btn btn-primary" ng-click="account.register()"><span class="glyphicon glyphicon-user"></span>Register</button>
-            <button class="btn btn-primary" ng-click="account.login()">Sign In</button>
+            <button class="btn btn-primary" ng-disabled="signUp.$invalid" ng-click="account.register()">
+                <span class="glyphicon glyphicon-user"></span>Register</button>
+            <button class="btn btn-primary" ng-disabled="signUp.$invalid" ng-click="account.login()">Sign In</button>
         </form>
         <form ng-if="loggedIn" class="form-inline pull-right" ng-submit="account.logout()">
             <label for="logout">{{ account.email }}</label>

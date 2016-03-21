@@ -49,18 +49,18 @@
     </div>
     <div class="col-xs-9 col-md-8">
         <div class="row" ng-if="vm.loggedIn">
-            <form class="form-inline">
+            <form name="userDetails" class="form-inline">
                 <div class="form-group">
                     <label for="fullName">Name</label>
-                    <input type="text" class="form-control" id="fullName" placeholder="Jane Doe"
+                    <input type="text" class="form-control" id="fullName" placeholder="Full Name"
                            ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
-                           ng-model="vm.user.name">
+                           ng-model="vm.user.name" required>
                 </div>
                 <div class="form-group">
                     <label for="telephone">Phone</label>
                     <input type="tel" class="form-control" id="telephone" placeholder="xxx-xxx-xxxx"
                            ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
-                           ng-model="vm.user.phone">
+                           ng-model="vm.user.phone" required>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
@@ -77,7 +77,8 @@
             <span class="pull-right">
 
             <h2 class="">Total order cost: ${{ vm.getRunningTotal().toFixed(2) }}
-                <a class="btn btn-primary" href="/summary">Summary View and Checkout</a></h2>
+                <a ng-if="userDetails.$invalid" class="btn btn-primary" ng-disabled="userDetails.$invalid" href="/order">Summary View and Checkout</a></h2>
+                <a ng-if="!userDetails.$invalid" class="btn btn-primary" href="/summary">Summary View and Checkout</a></h2>
             </span>
         </div>
         <div class="panel col-xs-6 panel-default fixed-panel"
