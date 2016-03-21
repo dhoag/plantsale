@@ -25,8 +25,10 @@
            }
         }
         function promptForPayment(email, amt, order){
+            var test_key = 'pk_test_gqdFo96Puw0yTTshH1rHadu0';
+            var prod_key = 'pk_live_MMWng2ZqX5FKvST3cNVMI723';
             var handler = StripeCheckout.configure({
-                key: 'pk_test_gqdFo96Puw0yTTshH1rHadu0',
+                key: prod_key,
                 image: "http://www.naperville203.org/cms/lib07/IL01904881/Centricity/Template/GlobalAssets/images/logos/mustang.jpg",
                 locale: 'auto',
                 token: getChargeFunction(order),

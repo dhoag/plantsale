@@ -37,7 +37,8 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
         # Set your secret key: remember to change this to your live secret key in production
         # See your keys here https://dashboard.stripe.com/account/apikeys
         stripe.api_key = "sk_test_zjKOcAlbiR2ltU6xo9E7FBGK"
-
+        # Override with production key
+        stripe.api_key = "sk_live_Ah027d6GGLjJPorpIU3pVo9X"
         # Get the credit card details submitted by the form
         token = request.data['token']
         order_id = kwargs['order_id']
