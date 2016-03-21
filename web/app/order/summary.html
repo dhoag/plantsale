@@ -1,5 +1,9 @@
-<button class="pull-right" onclick="window.print()"><i class="fa fa-print" ></i>
-</button>
+<div class="container">
+    <div class="pull-right">
+    Print to pay with check
+    <button onclick="window.print()"><i class="fa fa-print" ></i>
+    </button></div>
+</div>
 <div class="container">
     <div style="margin-left: 50px; top: 0; position: absolute">
         <h2>{{ vm.user.name }}  {{ vm.user.phone }}</h2>
@@ -32,7 +36,7 @@
     <div class="panel-body pull-right">
         <h1>Total Order Cost: ${{  vm.totalCost }}<h1>
         <button ng-if="!vm.currentOrder.done" class="btn btn-primary pull-right"
-                ng-click="vm.payWithStripe()" ng-disabled="vm.totalCost == 0">Finalize Order</button>
+                ng-click="vm.payWithStripe()" ng-disabled="vm.totalCost == 0">Pay with Credit Card</button>
     </div>
     <div ng-if="vm.currentOrder.done">
         <h3>Thank you very much for your order and ongoing support of Mill St. Home & School</h3>
