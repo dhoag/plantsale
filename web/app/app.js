@@ -16,6 +16,11 @@
 					controller: "OrderBuilder",
 					controllerAs: "vm"
 				})
+				.when("/orders", {
+					templateUrl: "app/order/all.html",
+					controller: "All",
+					controllerAs: "vm"
+				})
 				.when("/", {
 					templateUrl: "app/order/plants.html",
 					controller: "OrderBuilder",

@@ -92,7 +92,7 @@ class Order(models.Model):
     done = models.BooleanField(default=False)
     stakeholder = models.ForeignKey(Stakeholder, related_name="orders", on_delete=models.CASCADE )
     charge_data = models.CharField(max_length=100, blank=True, null=True)
-    charge_date = models.DateTimeField(blank=True, null=True);
+    charge_date = models.DateTimeField(blank=True, null=True)
 
     @property
     def last_updated(self):
@@ -100,7 +100,12 @@ class Order(models.Model):
            return item.updated
         return datetime.now()
 
-    def get_total(self):
+    @property
+    def email(self):
+        return self.stakeholder.email
+
+    @property
+    def total(self):
         cost = 0
         for item in self.items.all():
             cost += item.qty * item.plant.cost

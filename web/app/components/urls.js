@@ -24,7 +24,8 @@
                 orders : function(){ return apiRoot + "order/" },
                 pay: function(id){ return apiRoot + "order/pay/" + id + "/" },
                 addItem: function(){ return apiRoot + "order/items" },
-                updateItem: function(id){ return apiRoot + "order/item/" + id + "/" }
+                updateItem: function(id){ return apiRoot + "order/item/" + id + "/" },
+                allOrders: function(){ return apiRoot + "orders/" }
             }
         }
     }

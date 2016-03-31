@@ -6,6 +6,7 @@
     function OrderSvc(API, UrlGenerator){
         var svc = {
             getOrders: getOrders,
+            getAllOrders: getAllOrders,
             updateOrderItem: updateOrderItem,
             deleteOrderItem: deleteOrderItem,
             addOrderItem: addOrderItem
@@ -22,6 +23,9 @@
         }
         function getOrders(){
             return API.$get(UrlGenerator.user.orders());
+        }
+        function getAllOrders(){
+            return API.$get(UrlGenerator.user.allOrders());
         }
     }
 })();

@@ -69,6 +69,13 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
             return Response({'detail': e.message}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class AllOrders(generics.ListCreateAPIView, CurrentUserMixin):
+    permission_classes = [IsAdminUser]
+    model = Order
+    serializer_class = OrderSerializer
+    queryset = Order.objects.all()
+
+
 class GetOrder(generics.ListCreateAPIView, CurrentUserMixin):
     permission_classes = [IsAuthenticated]
     model = Order

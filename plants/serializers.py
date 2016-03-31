@@ -48,7 +48,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'last_updated', 'items', 'done')
+        fields = ('id', 'email', 'last_updated', 'items', 'total', 'done')
 
 
 class PlantSerializer(serializers.ModelSerializer):
