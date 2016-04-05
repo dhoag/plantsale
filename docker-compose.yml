@@ -19,7 +19,7 @@ api:
     restart: always
     environment:
        - DATABASE_URL=postgres://docker:dodocker@db/docker
-       - STRIPE_KEY=sk_live_Ah027d6GGLjJPorpIU3pVo9X
+       - STRIPE_KEY=sk_live_ asldkfjlaskdjflkjalsdkfj
     ports:
         - 80
     links:
