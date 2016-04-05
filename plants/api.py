@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework import generics, views, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from plantsale.settings import STRIPE_KEY
 
 import stripe
 
@@ -36,7 +37,8 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
     def post(self,request, *args, **kwargs):
         # Set your secret key: remember to change this to your live secret key in production
         # See your keys here https://dashboard.stripe.com/account/apikeys
-        stripe.api_key = "sk_test_zjKOcAlbiR2ltU6xo9E7FBGK"
+        #stripe.api_key = "sk_test_zjKOcAlbiR2ltU6xo9E7FBGK"
+        stripe.api_key = STRIPE_KEY
         # Override with production key
         # Get the credit card details submitted by the form
         token = request.data['token']
