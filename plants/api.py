@@ -51,7 +51,7 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
         # Create the charge on Stripe's servers - this will charge the user's card
         try:
             charge = stripe.Charge.create(
-                    amount=int(order.get_total() * 100),  # amount in cents, again
+                    amount=int(order.total * 100),  # amount in cents, again
                     currency="usd",
                     source=token,
                     description="Charge for " + str(self.request.user.email),
