@@ -15,7 +15,7 @@ import stripe
 
 from models import Stakeholder, Plant, Order, OrderItem
 from serializers import AccountSerializer, LoginSerializer, PlantSerializer, OrderSerializer, \
-    OrderItemSerializer, StakeholderSerializer
+    OrderItemSerializer, StakeholderSerializer, AllOrderSerializer
 
 
 class CurrentUserMixin(object):
@@ -74,7 +74,7 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
 class AllOrders(generics.ListCreateAPIView, CurrentUserMixin):
     permission_classes = [IsAdminUser]
     model = Order
-    serializer_class = OrderSerializer
+    serializer_class = AllOrderSerializer
     queryset = Order.objects.all()
 
 

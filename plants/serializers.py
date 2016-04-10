@@ -43,6 +43,15 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = ('id', 'order', 'plant', 'plant_name', 'plant_type', 'color', 'qty', 'updated')
 
 
+class AllOrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(many=True, read_only=True, allow_empty=True, allow_null=True)
+    stakeholder = StakeholderSerializer()
+
+    class Meta:
+        model = Order
+        fields = ('id', 'email', 'last_updated', 'items', 'total', 'done', 'stakeholder')
+
+
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True, allow_empty=True, allow_null=True)
 
