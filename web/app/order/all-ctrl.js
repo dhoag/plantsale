@@ -1,31 +1,32 @@
 (function(ex){
     angular.module('plantsale')
         .controller('All',All);
-    All.$inject = ["Auth", "OrderSvc" ];
+    All.$inject = ["Auth", 'OrderManager'];
 
-    function All(Auth, OrderSvc ) {
+    function All(Auth, OrderManager ) {
         var vm = this;
         vm.saleTotal = 0;
         vm.paidTotal = 0;
+        vm.OrderManager = OrderManager;
         if(!Auth.isLoggedIn()){
              $location.path("/");
              return;
         }
         initialize();
+        return;
 
         function initialize(){
             initListOfOrders();
         }
         function initListOfOrders(){
-            OrderSvc.getAllOrders()
-                .then(function(ex){
-                    vm.allOrders = ex.data;
+            OrderManager.getAllOrders()
+                .then(function(orders){
                     vm.saleTotal= 0;
                     vm.paidTotal = 0;
-                    for(idx in vm.allOrders){
-                        vm.saleTotal += vm.allOrders[idx].total;
-                        if(vm.allOrders[idx].done){
-                            vm.paidTotal += vm.allOrders[idx].total;
+                    for(var idx = orders.length; idx--; ){
+                        vm.saleTotal += orders[idx].total;
+                        if(orders[idx].done){
+                            vm.paidTotal += orders[idx].total;
                         }
                     }
                 })
