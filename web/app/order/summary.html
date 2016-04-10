@@ -36,7 +36,7 @@
                <button class="btn btn-danger" ng-click="vm.removeItem(item)">Delete</button>
             </td>
         </tr>
-        <tr ng-if="!vm.OrderManager.selectedOrder.done">
+        <tr ng-if="!vm.OrderManager.selectedOrder.done && !vm.orderEmail">
             <td><a class="btn btn-primary" href="/order">Add more items</a></td>
         </tr>
     </table>
