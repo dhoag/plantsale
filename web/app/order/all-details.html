@@ -15,7 +15,8 @@
             <div class="col-xs-7">Contact Info</div>
             <div class="col-xs-1">Amt </div>
         </h4>
-        <div ng-if="order.email" ng-repeat="order in vm.OrderManager.allOrders track by order.id">
+        <div ng-if="order.email && order.total > 0" ng-repeat="order in vm.OrderManager.allOrders track by order.id">
+            <h4>
             <div class="col-xs-3" ng-if="order.online"><i class="fa fa-cc-stripe"></i>Credit</div>
             <div class="col-xs-3" ng-if="!order.done">Incomplete </div>
             <div class="col-xs-3" ng-if="order.check"><i class="fa fa-bank"></i>#{{ order.checkNumber }}</div>
@@ -24,12 +25,15 @@
             <div class="col-xs-1"> </div>
             <div class="col-xs-1"> </div>
             <div class="col-xs-1"> ${{ order.total.toFixed(2) }}</div>
-            <div class="col-xs-12" ng-repeat="item in order.items track by item.id">
+            </h4>
+            <div class="col-xs-12" ng-if="item.qty > 0" ng-repeat="item in order.items track by item.id">
                 <div class="col-xs-1"><i class="fa fa-cert"></i> </div>
                 <div class="col-xs-4">{{ item.plant_type }}</div>
                 <div class="col-xs-3">{{ item.plant_name}}</div>
                 <div class="col-xs-2">{{ item.color }}</div>
                 <div class="col-xs-1">{{ item.qty }}</div>
             </div>
+            <div class="col-xs-12"><br></div>
+            <div class="col-xs-12"><br></div>
         </div>
 </div>
