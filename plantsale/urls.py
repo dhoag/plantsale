@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^api/register/?$', api.Register.as_view(), name='register',),
     url(r'^api/inventory/?$', api.Inventory.as_view(), name='inventory',),
     url(r'^api/order/?$', api.GetOrder.as_view(), name='order',),
+    url(r'^api/order/(?P<pk>\d+)/?$', api.OrderDetail.as_view(), name='order_detail',),
     url(r'^api/orders/?$', api.AllOrders.as_view(), name='order_all',),
     url(r'^api/order/pay/(?P<order_id>\d+)/?$', api.PayOrder.as_view(), name='pay_order',),
     url(r'^api/order/items/?$', api.Items.as_view(), name='list_items',),

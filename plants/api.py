@@ -78,6 +78,17 @@ class AllOrders(generics.ListCreateAPIView, CurrentUserMixin):
     queryset = Order.objects.all()
 
 
+class OrderDetail(generics.RetrieveUpdateDestroyAPIView, CurrentUserMixin):
+    permission_classes = [IsAdminUser]
+    model = Order
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        o = Order.objects.filter(id=self.kwargs['pk'])
+        print o
+        return o
+
+
 class GetOrder(generics.ListCreateAPIView, CurrentUserMixin):
     permission_classes = [IsAuthenticated]
     model = Order

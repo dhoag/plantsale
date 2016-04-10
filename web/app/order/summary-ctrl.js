@@ -5,19 +5,20 @@
 
     function Summary(Auth,OrderSvc, Inventory, StripeSvc) {
         var vm = this;
-        vm.orders = [];
-        vm.currentOrder = null;
-        vm.user = null;
+        if(!Auth.isLoggedIn()){ return; }
         vm.removeItem = removeItem;
         vm.updateItemQty = updateItemQty;
         vm.payWithStripe = payWithStripe;
-        vm.totalCost = 0;
 
-        if(!Auth.isLoggedIn()){
-            return;
-        }
+        vm.orders = [];
+        vm.currentOrder = null;
+        vm.user = null;
+        vm.totalCost = 0;
         vm.user = Auth.getUser();
+
         initialize();
+        return;
+
         function payWithStripe(){
             StripeSvc.promptForPayment(vm.user.email, vm.totalCost, vm.currentOrder);
         }
