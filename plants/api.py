@@ -84,9 +84,7 @@ class OrderDetail(generics.RetrieveUpdateDestroyAPIView, CurrentUserMixin):
     serializer_class = OrderSerializer
 
     def get_queryset(self):
-        o = Order.objects.filter(id=self.kwargs['pk'])
-        print o
-        return o
+        return Order.objects.filter(id=self.kwargs['pk'])
 
 
 class GetOrder(generics.ListCreateAPIView, CurrentUserMixin):

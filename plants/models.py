@@ -121,6 +121,14 @@ class OrderItem(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     @property
+    def plant_type(self):
+        return self.plant.type
+
+    @property
+    def plant_name(self):
+        return self.plant.name
+
+    @property
     def total(self):
         return self.qty * self.plant.cost
 
