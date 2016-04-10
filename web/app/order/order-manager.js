@@ -7,11 +7,28 @@
         var that = this;
         this.getAllOrders = getAllOrders;
         this.setSelectedOrder = setSelectedOrder;
+        this.getUserOrders = getUserOrders;
+
         this.selectedOrder;
         this.allOrders;
 
         return;
 
+        function getUserOrders(){
+            return OrderSvc.getOrders()
+                .then(function(ex){
+                    that.allOrders = ex.data;
+                    setSelectedOrder(ex.data[0]);
+                    return ex.data;
+                });
+        }
+        function getOrder(id){
+            return OrderSvc.getOrder(id)
+                .then(function(ex){
+                    setSelectedOrder(ex.data);
+                    return ex.data;
+                })
+        }
         function getAllOrders(){
             return OrderSvc.getAllOrders()
                 .then(function(result){

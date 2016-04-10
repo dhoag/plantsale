@@ -21,7 +21,10 @@
             };
             urls.user = {
                 account: function(id){ return apiRoot + "account/" + id + "/" },
-                orders : function(){ return apiRoot + "order/" },
+                orders: function(id){ return apiRoot + "order/"},
+                order : function(id){
+                    return apiRoot + "order/" + id + "/";
+                },
                 pay: function(id){ return apiRoot + "order/pay/" + id + "/" },
                 addItem: function(){ return apiRoot + "order/items" },
                 updateItem: function(id){ return apiRoot + "order/item/" + id + "/" },

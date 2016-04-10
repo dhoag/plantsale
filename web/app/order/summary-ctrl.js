@@ -1,17 +1,16 @@
 (function(){
     angular.module('plantsale')
         .controller('Summary', Summary);
-    Summary.$inject = ["Auth", "OrderSvc", "Inventory", "StripeSvc"];
+    Summary.$inject = ["Auth", "OrderManager", "OrderSvc", "Inventory", "StripeSvc"];
 
-    function Summary(Auth,OrderSvc, Inventory, StripeSvc) {
+    function Summary(Auth, OrderManager, OrderSvc, Inventory, StripeSvc) {
         var vm = this;
         if(!Auth.isLoggedIn()){ return; }
         vm.removeItem = removeItem;
         vm.updateItemQty = updateItemQty;
         vm.payWithStripe = payWithStripe;
 
-        vm.orders = [];
-        vm.currentOrder = null;
+        vm.OrderManager = OrderManager;
         vm.user = null;
         vm.totalCost = 0;
         vm.user = Auth.getUser();
@@ -20,7 +19,7 @@
         return;
 
         function payWithStripe(){
-            StripeSvc.promptForPayment(vm.user.email, vm.totalCost, vm.currentOrder);
+            StripeSvc.promptForPayment(vm.user.email, vm.totalCost, vm.OrderManager.selectedOrder);
         }
         function updateItemQty(item){
             console.log(item.newQty);
@@ -31,7 +30,7 @@
             updateTotal();
         }
         function updateTotal(){
-            var items = vm.currentOrder.items;
+            var items = vm.OrderManager.selectedOrder.items;
             var runningCosts = 0;
             for(i in items){
                 console.log(items[i].plantObj);
@@ -55,12 +54,11 @@
                 })
         }
         function initialize(){
-            OrderSvc.getOrders()
-                .then(function (ex) {
-                    vm.orders = ex.data;
-                    vm.currentOrder = ex.data[0];
-                    for(i in vm.currentOrder.items ){
-                        var item = vm.currentOrder.items[i];
+            OrderManager.getUserOrders( )
+                .then(function () {
+                    var items = vm.OrderManager.selectedOrder.items;
+                    for(var i = items.length; i--;  ){
+                        var item = items[i];
                         item.newQty = item.qty;
                         addPlant(item);
                     }
