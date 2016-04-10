@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
-from urllib3 import request
 from datetime import datetime
+
 from django.contrib.auth import authenticate, login
 from django.db import IntegrityError
 
@@ -69,6 +69,27 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
             print e
             # The card has been declined
             return Response({'detail': e.message}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PlantSummary(generics.ListAPIView):
+    permission_classes = [IsAdminUser]
+
+    def get(self, request, *args):
+        data = { }
+        for item in OrderItem.objects.all():
+            if item.qty > 0:
+                key = item.plant_type + " - " + item.plant_name
+                if item.color:
+                    key += ";  " + str(item.color)
+                if key in data:
+                    data[key] += item.qty
+                else:
+                    data[key] = item.qty
+        result = []
+        for key in data:
+            result.append({ 'name':key, 'qty': data[key]})
+
+        return Response(result, status.HTTP_200_OK)
 
 
 class AllOrders(generics.ListCreateAPIView, CurrentUserMixin):

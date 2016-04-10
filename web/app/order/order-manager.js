@@ -6,11 +6,13 @@
     function OrderManager(OrderSvc){
         var that = this;
         this.getAllOrders = getAllOrders;
+        this.getTotals = getTotals;
         this.setSelectedOrder = setSelectedOrder;
         this.getUserOrders = getUserOrders;
 
         this.selectedOrder;
         this.allOrders;
+        this.totals;
 
         return;
 
@@ -34,6 +36,13 @@
                 .then(function(result){
                     that.allOrders = result.data;
                     return result.data;
+                })
+        }
+        function getTotals(){
+            return OrderSvc.getTotals()
+                .then(function(result){
+                    that.totals = result.data;
+                    return that.totals;
                 })
         }
         function setSelectedOrder(order){

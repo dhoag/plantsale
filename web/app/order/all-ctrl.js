@@ -43,6 +43,10 @@
         }
         function initialize(){
             initListOfOrders();
+            initTotals();
+        }
+        function initTotals(){
+            OrderManager.getTotals()
         }
         function initListOfOrders(){
             OrderManager.getAllOrders()

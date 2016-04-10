@@ -11,9 +11,13 @@
             updateOrderItem: updateOrderItem,
             deleteOrderItem: deleteOrderItem,
             addOrderItem: addOrderItem,
-            updateOrder: updateOrder
+            updateOrder: updateOrder,
+            getTotals: getTotals
         };
         return svc;
+        function getTotals(){
+            return API.$get(UrlGenerator.inventory.totals());
+        }
         function updateOrder(id, data){
             return API.$patch(UrlGenerator.user.order(id), data);
         }

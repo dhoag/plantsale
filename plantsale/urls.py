@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^api/login/?$', api.Login.as_view(), name='login',),
     url(r'^api/register/?$', api.Register.as_view(), name='register',),
     url(r'^api/inventory/?$', api.Inventory.as_view(), name='inventory',),
+    url(r'^api/totals/?$', api.PlantSummary.as_view(), name='totals',),
     url(r'^api/order/?$', api.GetOrder.as_view(), name='order',),
     url(r'^api/order/(?P<pk>\d+)/?$', api.OrderDetail.as_view(), name='order_detail',),
     url(r'^api/orders/?$', api.AllOrders.as_view(), name='order_all',),

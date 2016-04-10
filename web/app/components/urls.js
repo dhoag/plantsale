@@ -13,7 +13,8 @@
                  apiRoot = "/api/";
             }
             urls.inventory = {
-                plants: function(){ return apiRoot + "inventory/"}
+                plants: function(){ return apiRoot + "inventory/"},
+                totals: function(){ return apiRoot + "totals/"}
             };
             urls.auth = {
                 login : function(){ return apiRoot + "login/" },

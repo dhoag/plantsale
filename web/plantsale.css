@@ -3,7 +3,10 @@
   max-height: 300px;
   overflow-y: scroll;
 }
-
+.order-panel{
+  height: 85px;
+  overflow-y: hidden;
+}
 .plant-list{
   min-height: 800px;
   max-height: 800px;
