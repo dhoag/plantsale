@@ -14,6 +14,7 @@
         vm.user = null;
         vm.totalCost = 0;
         vm.user = Auth.getUser();
+        vm.orderEmail;
 
         initialize();
         return;
@@ -53,15 +54,26 @@
                     vm.totalCost += lineItem.qty * plant.cost;
                 })
         }
+        function enrichOrderItems(){
+            var items = vm.OrderManager.selectedOrder.items;
+            for(var i = items.length; i--;  ){
+                var item = items[i];
+                item.newQty = item.qty;
+                addPlant(item);
+            }
+        }
         function initialize(){
+            //The order to view was set outside of this controller
+            if( OrderManager.selectedOrder){
+                if( OrderManager.selectedOrder.email != vm.user.email ){
+                    vm.orderEmail = OrderManager.selectedOrder.email;
+                }
+                enrichOrderItems();
+                return;
+            }
             OrderManager.getUserOrders( )
                 .then(function () {
-                    var items = vm.OrderManager.selectedOrder.items;
-                    for(var i = items.length; i--;  ){
-                        var item = items[i];
-                        item.newQty = item.qty;
-                        addPlant(item);
-                    }
+                   enrichOrderItems();
                 });
         }
 

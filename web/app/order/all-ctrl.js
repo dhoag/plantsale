@@ -1,10 +1,12 @@
 (function(ex){
     angular.module('plantsale')
         .controller('All',All);
-    All.$inject = ["Auth", 'OrderManager'];
+    All.$inject = ["Auth", 'OrderManager', '$location'];
 
-    function All(Auth, OrderManager ) {
+    function All(Auth, OrderManager, $location ) {
         var vm = this;
+        vm.viewOrder = viewOrder;
+
         vm.saleTotal = 0;
         vm.paidTotal = 0;
         vm.OrderManager = OrderManager;
@@ -15,6 +17,10 @@
         initialize();
         return;
 
+        function viewOrder(order){
+            vm.OrderManager.setSelectedOrder(order);
+            $location.path('/summary');
+        }
         function initialize(){
             initListOfOrders();
         }

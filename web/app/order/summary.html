@@ -6,9 +6,12 @@
 </div>
 <div class="container">
     <div style="margin-left: 50px; top: 0; position: absolute">
-        <h2>{{ vm.user.name }}  {{ vm.user.phone }}</h2>
-        <h3>
-        <span ng-if="vm.user.volunteer">I want to volunteer for {{ vm.user.times }} </span></h3>
+        <span ng-if="! vm.orderEmail">
+            <h2>{{ vm.user.name }}  {{ vm.user.phone }}</h2>
+            <h3>
+            <span ng-if="vm.user.volunteer">I want to volunteer for {{ vm.user.times }} </span></h3>
+        </span>
+        <span ng-if="vm.orderEmail"> <h3>Order for: {{ vm.orderEmail }} </h3></span>
     </div>
     <table style="margin-top: 75px;" class="table table-responsive">
         <thead><th>Name</th><th>Color</th><th>Quantity</th><th>Price</th>

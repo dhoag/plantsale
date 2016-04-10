@@ -27,7 +27,7 @@
             <div class="hidden-xs col-sm-2"> {{ order.last_updated }}</div>
             <div class="col-xs-1"> ${{ order.total.toFixed(2) }}</div>
             <div class="col-xs-1">
-                <button>View</button>
+                <button ng-click="vm.viewOrder(order)">View</button>
             </div>
         </div>
 </div>
