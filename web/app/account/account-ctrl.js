@@ -17,7 +17,7 @@
             $scope.loggedIn = Auth.isLoggedIn();
             vm.user = Auth.getUser();
             if(vm.user)
-                vm.email = vm.user.email;
+                vm.email = vm.user.email.trim();
         }
         function register(){
             Auth.register(vm.creds)

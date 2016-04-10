@@ -34,9 +34,11 @@
                 })
         }
         function login(credentials){
+            credentials.email = credentials.email.trim();
             return postApi(UrlGenerator.auth.login(),credentials);
         }
         function register(credentials){
+            credentials.email = credentials.email.trim();
             return postApi(UrlGenerator.auth.register(),credentials);
         }
         function logout(){
