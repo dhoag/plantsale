@@ -49,7 +49,7 @@ class AllOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'email', 'last_updated', 'items', 'total', 'done', 'stakeholder')
+        fields = ('id', 'email', 'last_updated', 'items', 'total', 'done', 'charge_data', 'stakeholder')
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -57,7 +57,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'email', 'last_updated', 'items', 'total', 'done')
+        fields = ('id', 'email', 'last_updated', 'items', 'total', 'charge_data', 'done')
 
 
 class PlantSerializer(serializers.ModelSerializer):
