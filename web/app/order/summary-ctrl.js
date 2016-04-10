@@ -67,6 +67,9 @@
             if( OrderManager.selectedOrder){
                 if( OrderManager.selectedOrder.email != vm.user.email ){
                     vm.orderEmail = OrderManager.selectedOrder.email;
+                    if( OrderManager.selectedOrder.stakeholder ) {
+                        vm.user = OrderManager.selectedOrder.stakeholder;
+                    }
                 }
                 enrichOrderItems();
                 return;

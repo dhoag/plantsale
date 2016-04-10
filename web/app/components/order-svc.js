@@ -10,9 +10,13 @@
             getAllOrders: getAllOrders,
             updateOrderItem: updateOrderItem,
             deleteOrderItem: deleteOrderItem,
-            addOrderItem: addOrderItem
+            addOrderItem: addOrderItem,
+            updateOrder: updateOrder
         };
         return svc;
+        function updateOrder(id, data){
+            return API.$patch(UrlGenerator.user.order(id), data);
+        }
         function updateOrderItem(id, data){
             return API.$patch(UrlGenerator.user.updateItem(id), data);
         }

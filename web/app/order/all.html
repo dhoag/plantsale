@@ -18,11 +18,21 @@
             <div class="col-xs-2 col-md-2">
             </div>
         </h4>
-        <div ng-if="order.email" ng-repeat="order in vm.OrderManager.allOrders">
-            <div class="col-xs-5 col-md-4" ng-if="order.done">Paid Online</div>
-            <div class="col-xs-5 col-md-4" ng-if="!order.done">Incomplete or sending check
-                <button >Check Received</button>
+        <div ng-if="order.email" ng-repeat="order in vm.OrderManager.allOrders track by order.id">
+            <div class="col-xs-5 col-md-4" ng-if="order.online">Paid Online</div>
+            <div class="col-xs-5 col-md-4" ng-if="order.check">Paid by check {{  order.checkNumber }}</div>
+            <span ng-if="!order.done">
+            <div ng-if="!order.showCheckNumber" class="col-xs-5 col-md-4" ng-if="!order.done">Incomplete or sending check
+                <button  ng-click="order.showCheckNumber = true">Check Received</button>
             </div>
+            <div ng-if="order.showCheckNumber" class="col-xs-5 col-md-4" >
+                <span ng-if="order.showCheckNumber">
+                    <input type="text" ng-model="order.checkNumber">
+                    <button ng-click="vm.acceptCheck(order)"><i class="fa fa-check-square-o"></i> </button>
+                    <button ng-click="order.showCheckNumber = false"><i class="fa fa-close"></i> </button>
+                </span>
+            </div>
+            </span>
             <div class="col-xs-4 col-md-3"> {{ order.email }}</div>
             <div class="hidden-xs col-sm-2"> {{ order.last_updated }}</div>
             <div class="col-xs-1"> ${{ order.total.toFixed(2) }}</div>

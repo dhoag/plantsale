@@ -11,7 +11,11 @@
             <h3>
             <span ng-if="vm.user.volunteer">I want to volunteer for {{ vm.user.times }} </span></h3>
         </span>
-        <span ng-if="vm.orderEmail"> <h3>Order for: {{ vm.orderEmail }} </h3></span>
+        <span ng-if="vm.orderEmail">
+            <h3>Order for: {{ vm.user.name }} -- {{ vm.user.phone }} </h3>
+            <h3>{{ vm.user.email }}</h3>
+            <span ng-if="vm.user.volunteer">Volunteer for {{ vm.user.times }} </span>
+        </span>
     </div>
     <table style="margin-top: 75px;" class="table table-responsive">
         <thead><th>Name</th><th>Color</th><th>Quantity</th><th>Price</th>
@@ -20,28 +24,28 @@
         <tr ng-if="item.qty != 0" ng-repeat="item in vm.OrderManager.selectedOrder.items">
             <td>{{ item.plantObj.name }}</td>
             <td>{{ item.color }}</td>
-            <td><form ng-if="!vm.currentOrder.done">
+            <td><form ng-if="!vm.OrderManager.selectedOrder.done">
                 <input style="max-width: 35px" type="text"
                        ng-model-options="{debounce:1000}" ng-model="item.newQty" ng-change="vm.updateItemQty(item)">
                 </form>
-                <span ng-if="vm.currentOrder.done">{{ item.qty }}</span>
+                <span ng-if="vm.OrderManager.selectedOrder.done">{{ item.qty }}</span>
             </td>
             <td>${{ item.plantObj.cost }} each</td>
             <td>${{ item.newQty * item.plantObj.cost }}</td>
-            <td ng-if="!vm.currentOrder.done">
+            <td ng-if="!vm.OrderManager.selectedOrder.done">
                <button class="btn btn-danger" ng-click="vm.removeItem(item)">Delete</button>
             </td>
         </tr>
-        <tr ng-if="!vm.currentOrder.done">
+        <tr ng-if="!vm.OrderManager.selectedOrder.done">
             <td><a class="btn btn-primary" href="/order">Add more items</a></td>
         </tr>
     </table>
     <div class="panel-body pull-right">
         <h1>Total Order Cost: ${{  vm.totalCost }}<h1>
-        <button ng-if="!vm.currentOrder.done" class="btn btn-primary pull-right"
+        <button ng-if="!vm.OrderManager.selectedOrder.done" class="btn btn-primary pull-right"
                 ng-click="vm.payWithStripe()" ng-disabled="vm.totalCost == 0">Pay with Credit Card</button>
     </div>
-    <div ng-if="vm.currentOrder.done">
+    <div ng-if="vm.OrderManager.selectedOrder.done && ! vm.orderEmail" >
         <h3>Thank you very much for your order and ongoing support of Mill St. Home & School</h3>
     </div>
 </div>
