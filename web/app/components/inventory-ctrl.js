@@ -7,17 +7,21 @@
         var svc = {
             getPlants: getPlants,
             getPlant: getPlant,
-            getCategories: getCategories
+            getCategories: getCategories,
+            clear : clear
         };
         var categories = [];
         var plants = [];
         return svc;
 
+        function clear(){
+            plants = [];
+        }
         function getCategories(){
             return categories;
         }
         function lookupById(id){
-            for(i in plants){
+            for(var i = plants.length; i--; ){
                 if(plants[i].id == id) return plants[i];
             }
             return null;

@@ -86,7 +86,7 @@
         </div>
         <div class="panel col-xs-6 panel-default fixed-panel"
              ng-if="plant.selected"
-             ng-repeat="plant in vm.plants">
+             ng-repeat="plant in vm.plants track by plant.id">
             <div class="panel-heading row">
                 <h3 class="panel-title">{{ plant.name }}</h3>
                 <div class="col-xs-6">

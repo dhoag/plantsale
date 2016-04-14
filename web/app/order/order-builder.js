@@ -12,6 +12,7 @@
         vm.updateQty = updateQty;
         vm.updateColor = updateColor;
         vm.updateUser = updateUser;
+        Inventory.clear();
         OrderManager.selectedOrder = null;
         OrderManager.allOrders = null;
         OrderManager.totals = null;
@@ -88,7 +89,7 @@
         function getRunningTotal() {
             if (!vm.loggedIn) return "Log in to create an order.";
             var total = 0;
-            for (idx in vm.plants) {
+            for (var idx = vm.plants.length; idx--; ) {
                 if (vm.plants[idx].selected)
                     total += getTotal(vm.plants[idx]);
             }
@@ -107,7 +108,7 @@
         }
 
         function toggleCat(category) {
-            for (var idx in vm.plants) {
+            for (var idx = vm.plants.length; idx--; ) {
                 if (vm.plants[idx].type == category)
                     vm.plants[idx].category = !vm.plants[idx].category;
             }

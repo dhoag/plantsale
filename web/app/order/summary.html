@@ -21,7 +21,7 @@
         <thead><th>Name</th><th>Color</th><th>Quantity</th><th>Price</th>
         <th>Line Item Cost</th>
         <th ng-if="!vm.OrderManager.selectedOrder.done">Delete</th></thead>
-        <tr ng-if="item.qty != 0" ng-repeat="item in vm.OrderManager.selectedOrder.items">
+        <tr ng-if="item.qty != 0" ng-repeat="item in vm.OrderManager.selectedOrder.items track by item.id">
             <td>{{ item.plantObj.name }}</td>
             <td>{{ item.color }}</td>
             <td><form ng-if="!vm.OrderManager.selectedOrder.done">
