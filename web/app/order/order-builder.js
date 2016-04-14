@@ -1,13 +1,10 @@
 (function () {
     angular.module('plantsale')
         .controller('OrderBuilder', OrderBuilder);
-    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc", "$location", "$interval"];
+    OrderBuilder.$inject = ["Auth", "Inventory", "OrderSvc", "$location", "$interval", "OrderManager"];
 
-    function OrderBuilder(Auth, Inventory, OrderSvc, $location, $interval) {
+    function OrderBuilder(Auth, Inventory, OrderSvc, $location, $interval, OrderManager) {
         var vm = this;
-        vm.order = null;
-        vm.searchText = "";
-        vm.plants = [];
         vm.toggleCat = toggleCat;
         vm.getTotal = getTotal;
         vm.getRunningTotal = getRunningTotal;
@@ -15,6 +12,12 @@
         vm.updateQty = updateQty;
         vm.updateColor = updateColor;
         vm.updateUser = updateUser;
+        OrderManager.selectedOrder = null;
+        OrderManager.allOrders = null;
+        OrderManager.totals = null;
+        vm.order = null;
+        vm.searchText = "";
+        vm.plants = [];
         vm.orders = {};
         vm.categories = [];
         vm.loggedIn = Auth.isLoggedIn();
