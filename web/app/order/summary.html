@@ -22,7 +22,7 @@
         <th>Line Item Cost</th>
         <th ng-if="!vm.OrderManager.selectedOrder.done">Delete</th></thead>
         <tr ng-if="item.qty != 0" ng-repeat="item in vm.OrderManager.selectedOrder.items track by item.id">
-            <td>{{ item.plantObj.name }}</td>
+            <td>{{ item.plant_name }} <br>{{ item.plant_type }}</td>
             <td>{{ item.color }}</td>
             <td><form ng-if="!vm.OrderManager.selectedOrder.done">
                 <input style="max-width: 35px" type="text"
