@@ -1,8 +1,8 @@
 (function(){
     var mod = angular.module("auth-mod", ["api-mod", "LocalStorageModule"]);
-    Auth.$inject = [ "API", "UrlGenerator", "localStorageService"];
+    Auth.$inject = [ "API", "UrlGenerator", "localStorageService", "Inventory"];
     mod.service("Auth", Auth);
-    function Auth(API, UrlGenerator, localStorageService){
+    function Auth(API, UrlGenerator, localStorageService, Inventory){
         return {
             login: login,
             logout: logout,
@@ -43,6 +43,7 @@
         }
         function logout(){
             API.setAuthToken(null);
+            Inventory.clear();
             localStorageService.remove('user');
         }
         function getUser(){

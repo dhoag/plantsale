@@ -12,7 +12,6 @@
         vm.updateQty = updateQty;
         vm.updateColor = updateColor;
         vm.updateUser = updateUser;
-        Inventory.clear();
         OrderManager.selectedOrder = null;
         OrderManager.allOrders = null;
         OrderManager.totals = null;
