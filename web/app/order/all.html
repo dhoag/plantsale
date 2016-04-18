@@ -10,7 +10,7 @@
     </div>
     <div class="col-xs-12 container-fluid">
         <div class="col-xs-6 panel panel-default order-panel"
-             ng-repeat="plant in vm.OrderManager.totals | orderBy:'name' track by plant.id">
+             ng-repeat="plant in vm.OrderManager.totals | orderBy:'name' track by $index">
             <div class="panel-body">
                 <p> {{ plant.name }}</p>
                 Quantity: {{ plant.qty }}
