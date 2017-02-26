@@ -1,8 +1,8 @@
 {
-  "name": "NextTier-Library",
+  "name": "millstplantsale",
   "description": "Library",
   "version": "0.0.0",
-  "homepage": "https://github.com/nexttier/library",
+  "homepage": "",
   "license": "",
   "private": true,
   "dependencies": {
@@ -22,9 +22,10 @@
     "at-table": "1.0.4",
     "bootstrap-css-only": "~3.3.4",
     "fontawesome": "^4.2.0",
+    "foundation-sites": "*",
     "html5-boilerplate": "~5.0.x",
-    "jquery": "2.1.x",
-    "jquery-ui": "1.11.x",
+    "jquery": "*",
+    "jquery-ui": "*",
     "js-xlsx": "*",
     "lodash": "*",
     "moment": "~2.10.3",
@@ -34,12 +35,9 @@
     "bootstrap-additions": "~0.3.1",
     "angular-motion": "~0.4.3",
     "angular-animate": "~1.4.7",
-    "ng-file-upload": "~9.1.2",
     "majora": "1.x",
     "angular-xeditable": "~0.1.9",
-    "vokal-ngDialog": "https://github.com/vokal/ngDialog.git#0.4.x",
     "d3":"*"
-
   },
   "resolutions": {
     "angular": "1.4.x"

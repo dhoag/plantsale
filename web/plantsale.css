@@ -1,3 +1,4 @@
+@import 'bower_components/foundation-sites/dist/css/foundation.css';
 .fixed-panel {
   min-height: 300px;
   max-height: 300px;
