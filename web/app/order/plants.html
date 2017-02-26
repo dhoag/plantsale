@@ -48,9 +48,9 @@
         </div>
     </div>
     <div class="col-xs-9 col-md-8">
-        <h3>To complete your order please provide name and phone details</h3>
+        <h4 ng-if="vm.userDetails.$invalid">To start your order please provide name and phone details</h4>
         <div class="row" ng-if="vm.loggedIn">
-            <form name="userDetails" class="form-inline">
+            <form name="vm.userDetails" class="form-inline">
                 <div class="form-group">
                     <label for="fullName">Name</label>
                     <input type="text" class="form-control" id="fullName" placeholder="Full Name"
@@ -74,37 +74,37 @@
                            ng-change="vm.updateUser()" ng-model-options="{debounce:1000}"
                            ng-model="vm.user.times">
                 </div>
+                <span ng-if="vm.userDetails.$invalid"
+                      class="btn btn-primary" ng-disabled="vm.userDetails.$invalid">View Cart</span>
+                <a ng-if="!vm.userDetails.$invalid" class="btn btn-primary" href="/summary">View Cart</a></h2>
             </form>
-            <span class="pull-right">
-
-            <h2 class="">Total order cost: ${{ vm.getRunningTotal().toFixed(2) }}
-                <span ng-if="userDetails.$invalid"
-                      class="btn btn-primary" ng-disabled="userDetails.$invalid">Summary View and Checkout</span>
-                <a ng-if="!userDetails.$invalid" class="btn btn-primary" href="/summary">Summary View and Checkout</a></h2>
-            </h2>
-            </span>
         </div>
-        <div class="panel col-xs-6 panel-default fixed-panel"
+        <div class="row col-xs-12"
              ng-if="plant.selected"
              ng-repeat="plant in vm.plants track by plant.id">
-            <div class="panel-heading row">
-                <h3 class="panel-title">{{ plant.name }}</h3>
-                <div class="col-xs-6">
-                    <h5>{{ plant.type }} </h5>
-
-                    <h4 ng-if="plant.sun"><i class="fa fa-sun-o"></i> {{ plant.sun }}</h4>
-                    <h4>$ {{ plant.cost }} /each</h4>
-                </div>
+            <div class="row">
                 <img src="{{ plant.img_url }}"
-                     class="img-rounded pull-right" width="100" height="75">
-                <h3 class="pull-right">
+                     class="img-rounded" width="100" height="75">
+                <div class="col-xs-6">{{ plant.name }} {{ plant.type }}
+                    <div ng-if="plant.sun"><i class="fa fa-sun-o"></i> {{ plant.sun }}</div>
+                    $ {{ plant.cost }} /each
+                    <label class="notes" ng-if="plant.description">{{ plant.description }}</label>
+                </div>
+                <div ng-if="!plant.color_preference" class="pull-right">
+                    <label>Qty
+                        <input id="qty{{ plant.id }}" type="text" defaultValue="0"
+                               ng-model="plant.qty">
+                    </label>
+                    <span class="btn btn-primary" ng-click="vm.updateQty(plant)">Update Cart</span>
+                </div>
+                <div ng-if="false" class="pull-right">
                     <label style="color:green">Total: </label>
-                    ${{ vm.getTotal(plant) }}</h3>
+                    ${{ vm.getTotal(plant) }}</div>
             </div>
             <div ng-if="!vm.loggedIn" class="panel-body">
                 <h2>Please login to build your order</h2>
             </div>
-            <div ng-if="vm.loggedIn" class="panel-body">
+            <div ng-if="vm.loggedIn && !vm.userDetails.$invalid" class="panel-body">
                 <div ng-if="plant.limit">
                     <div ng-repeat="color in plant.colors">
                         <input class="col-xs-9" type="text" value="{{ color.free_color }}" disabled>
@@ -118,18 +118,12 @@
                     <input class="col-xs-9" type="text" placeholder="Color: Red, Pink, Etc..."
                            ng-change="vm.updateColor(plant)" ng-model-options="{debounce:1000}"
                            ng-model="plant.free_color">
-                    <input class="col-xs-3" type="text" defaultValue="1"
+                    <input class="col-xs-3" type="text" defaultValue="0"
                            ng-change="vm.updateQty(plant)" ng-model-options="{debounce:1000}"
                            ng-model="plant.qty">
                     <label class="notes" ng-if="plant.notes">{{ plant.notes }}</label>
                 </div>
-                <div ng-if="!plant.color_preference">
-                    <label for="qty{{ plant.id }}" class="col-xs-5">Qty:</label>
-                    <input id="qty{{ plant.id }}" class="col-xs-7" type="text" defaultValue="1"
-                           ng-change="vm.updateQty(plant)" ng-model-options="{debounce:1000}"
-                           ng-model="plant.qty">
-                    <label class="notes" ng-if="plant.description">{{ plant.description }}</label>
-                </div>
+
             </div>
         </div>
     </div>

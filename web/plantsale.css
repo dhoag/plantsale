@@ -18,3 +18,6 @@
   margin-top: 15px;
   font-weight: normal;
 }
+.my-inline{
+  display: inline-block;
+}
