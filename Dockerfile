@@ -7,8 +7,6 @@ WORKDIR /code/plantsale
 RUN apt-get update -qq && \
     apt-get install -y -qq socat git python-pip python-psycopg2 libpq-dev \
     python2.7-dev gunicorn g++ make python-dev > /dev/null && \
-    git clone https://github.com/ztane/python-Levenshtein && \
-        cd python-Levenshtein && python setup.py install && \
     apt-get clean > /dev/null && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

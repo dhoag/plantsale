@@ -32,6 +32,8 @@ class Stakeholder(models.Model):
     phone = models.CharField(max_length=15, blank=True, null=True)
     name = models.CharField(max_length=128, blank=True, null=True)
     volunteer = models.BooleanField(default=False)
+    is_anonymous = models.BooleanField(default=False)
+    is_authenticated = models.BooleanField(default=True)
     times = models.CharField(max_length=128, blank=True, null=True)
 
     REQUIRED_FIELDS = ['password']
@@ -46,13 +48,6 @@ class Stakeholder(models.Model):
 
     def natural_key(self):
         return (self.get_username(),)
-
-    def is_authenticated(self):
-        """
-        Always return True. This is a way to tell if the user has been
-        authenticated in templates.
-        """
-        return True
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)

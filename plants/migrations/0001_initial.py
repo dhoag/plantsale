@@ -21,6 +21,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email', models.CharField(max_length=100, unique=True)),
                 ('password', models.CharField(max_length=128)),
+                ('is_anonymous', models.BooleanField(default=False)),
+                ('is_authenticated', models.BooleanField(default=False)),
             ],
         ),
         migrations.CreateModel(
