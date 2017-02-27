@@ -79,6 +79,9 @@
 
         function updateQty(plant) {
             if (!vm.loggedIn) return;
+            if(plant.qty == "") {
+                plant.qty = 0;
+            }
             OrderSvc.updateOrderItem(plant.orderId, {"qty": plant.qty})
                 .catch(function (ex) {
                     toastr.error("Please reload to ensure quantity update updated.");

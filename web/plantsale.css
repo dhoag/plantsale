@@ -21,3 +21,9 @@
 .my-inline{
   display: inline-block;
 }
+.my-card {
+  border: groove;
+  border-color: black;
+  margin: 2px;
+  padding: 2px;
+}

@@ -79,7 +79,7 @@
                 <a ng-if="!vm.userDetails.$invalid" class="btn btn-primary" href="/summary">View Cart</a></h2>
             </form>
         </div>
-        <div class="row col-xs-12"
+        <div class="row col-xs-12 my-card"
              ng-if="plant.selected"
              ng-repeat="plant in vm.plants track by plant.id">
             <div class="row">
@@ -90,38 +90,40 @@
                     $ {{ plant.cost }} /each
                     <label class="notes" ng-if="plant.description">{{ plant.description }}</label>
                 </div>
-                <div ng-if="!plant.color_preference" class="pull-right">
+                <div ng-if="!plant.color_preference && !vm.userDetails.$invalid" class="col-xs-2 pull-right">
                     <label>Qty
-                        <input id="qty{{ plant.id }}" type="text" defaultValue="0"
+                        <input id="qty{{ plant.id }}"
+                               ng-change="vm.updateQty(plant)"
+                               type="text"
                                ng-model="plant.qty">
                     </label>
-                    <span class="btn btn-primary" ng-click="vm.updateQty(plant)">Update Cart</span>
+                    <!-- <span class="btn btn-primary" ng-click="vm.updateQty(plant)">Update Cart</span> -->
                 </div>
-                <div ng-if="false" class="pull-right">
-                    <label style="color:green">Total: </label>
-                    ${{ vm.getTotal(plant) }}</div>
             </div>
             <div ng-if="!vm.loggedIn" class="panel-body">
                 <h2>Please login to build your order</h2>
             </div>
-            <div ng-if="vm.loggedIn && !vm.userDetails.$invalid" class="panel-body">
-                <div ng-if="plant.limit">
-                    <div ng-repeat="color in plant.colors">
-                        <input class="col-xs-9" type="text" value="{{ color.free_color }}" disabled>
-                        <input class="col-xs-3" type="text" ng-model="color.qty"
-                               ng-change="vm.updateQty(color)" ng-model-options="{debounce:1000}"
-                               placeholder="0">
+            <div ng-if="vm.loggedIn && !vm.userDetails.$invalid">
+                <div class="row" ng-if="plant.limit">
+                    <div class="col-xs-4" ng-repeat="color in plant.colors">
+                        <label>{{ color.free_color }}
+                        <input type="text" ng-model="color.qty"
+                               ng-change="vm.updateQty(color)"></label>
                     </div>
-                    <label class="notes" ng-if="plant.notes">{{ plant.notes }}</label>
+                    <label class="notes col-xs-6" ng-if="plant.notes">{{ plant.notes }}</label>
                 </div>
-                <div ng-if="plant.color_preference && !plant.limit">
-                    <input class="col-xs-9" type="text" placeholder="Color: Red, Pink, Etc..."
-                           ng-change="vm.updateColor(plant)" ng-model-options="{debounce:1000}"
-                           ng-model="plant.free_color">
-                    <input class="col-xs-3" type="text" defaultValue="0"
-                           ng-change="vm.updateQty(plant)" ng-model-options="{debounce:1000}"
-                           ng-model="plant.qty">
-                    <label class="notes" ng-if="plant.notes">{{ plant.notes }}</label>
+                <div class="row" ng-if="plant.color_preference && !plant.limit">
+                    <div class="col-xs-4 pull-right">
+                        <input type="text" placeholder="Color: Red, Pink, Etc..."
+                               ng-change="vm.updateColor(plant)"
+                               ng-model="plant.free_color" />
+                        <span class="col-xs-6 pull-right">
+                        <input type="text"
+                               ng-change="vm.updateQty(plant)"
+                               ng-model="plant.qty"/>
+                        </span>
+                    </div>
+                    <label class="notes col-xs-6" ng-if="plant.notes">{{ plant.notes }}</label>
                 </div>
 
             </div>
