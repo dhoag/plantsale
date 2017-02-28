@@ -140,7 +140,7 @@ class Inventory(generics.ListAPIView):
     permission_classes = [AllowAny]
     model = Plant
     serializer_class = PlantSerializer
-    queryset = Plant.objects.all()
+    queryset = Plant.objects.all().order_by('name')
 
 
 class Register(generics.CreateAPIView):

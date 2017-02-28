@@ -3,6 +3,7 @@ logs/*
 **/node_modules/*
 **/bower_components/*
 **/build/*
+**/.bin/*
 *.pyc
 tmp
 .DS_Store
