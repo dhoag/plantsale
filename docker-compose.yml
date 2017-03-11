@@ -3,7 +3,7 @@ proxy:
     restart: always
     ports:
         - 80:80
-        - 443:443
+        - 8080:8080
     volumes: 
         - /var/run/docker.sock:/tmp/docker.sock
 db:
@@ -18,8 +18,9 @@ api:
     image: plant-api
     restart: always
     environment:
-       - DATABASE_URL=postgres://docker:dodocker@db/docker
-       - STRIPE_KEY=sk_live_ asldkfjlaskdjflkjalsdkfj
+       - VIRTUAL_HOST=api.millstplantsale.com
+       - DATABASE_URL=postgres://docker:FIXME@db/docker
+       - STRIPE_KEY=sk_live_asdfasdfasdfasdfasd
     ports:
         - 80
     links:
