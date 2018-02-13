@@ -24,7 +24,6 @@ SECRET_KEY = 'v$+$6%)li2dpqhtoz$$^jt05bfw8b@5k(_4br-esm+7%za9#(*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
 
@@ -98,6 +97,7 @@ DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 STATIC_URL = '/static/'
 TEMPLATES = [
     {
+        'TEMPLATE_DEBUG' : True,
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             # insert your TEMPLATE_DIRS here
@@ -130,7 +130,7 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': DATETIME_FORMAT,
     'DATETIME_INPUT_FORMAT': DATETIME_FORMAT,
     'DEFAULT_FILTER_BACKENDS': (
-        'rest_framework.filters.DjangoFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ),
