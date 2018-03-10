@@ -97,7 +97,6 @@ DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 STATIC_URL = '/static/'
 TEMPLATES = [
     {
-        'TEMPLATE_DEBUG' : True,
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             # insert your TEMPLATE_DIRS here
@@ -116,6 +115,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'debug': DEBUG,
         },
     },
 ]
