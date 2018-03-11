@@ -3,7 +3,7 @@ LIST="bower_components/jquery/dist/jquery bower_components/angular/angular bower
 LIST="${LIST} bower_components/angular-cookies/angular-cookies bower_components/angular-facebook/lib/angular-facebook bower_components/angular-local-storage/angular-local-storage bower_components/toastr/toastr"
 LIST="${LIST} bower_components/ngInfiniteScroll/build/ng-infinite-scroll"
 
-rm app/core.min.js
+rm -f app/core.min.js
 for i in $LIST; do
    if [ -f ${i}.minOOOO.js ]; then
       cat ${i}.min.js  >> app/core.min.js
