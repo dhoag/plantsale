@@ -1,3 +1,11 @@
+proxy:
+    image: host-proxy
+    ports:
+      - "80:80"
+      - "8080:8080"
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
 db:
     image: postgres
     restart: always
