@@ -42,6 +42,7 @@
             promise.error(function (data, status, headers, config) {
                 if (status == 401 || status == 403) {
                     console.log("API unauthorized. " + options.url);
+                    localStorageService.remove("authToken");
                     $rootScope.FORBIDDEN = true;
                     return status;
                 }

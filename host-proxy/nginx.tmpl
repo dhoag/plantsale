@@ -115,7 +115,12 @@ upstream {{ $host }} {
 server {
    listen 80;
    server_name {{ $host }};
-   return 302 https://$host$request_uri;
+   if ($http_x_forwarded_proto = 'http') {            
+      return 301 https://$server_name$request_uri;
+   }
+   location / {
+      proxy_pass http://{{ $host }};
+   }
 }
 server {
    server_name {{ $host }};
