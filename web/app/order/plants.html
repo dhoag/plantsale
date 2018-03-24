@@ -52,8 +52,10 @@ Paper orders should include a check made payable to “Mill Street H&amp;S”. A
 <p>
 *If you would like to VOLUNTEER to help on May 12th (unloading the truck &amp;
 organizing the plants, etc.) anytime between 6:00am-12pm, please indicate on
-your order. You may also contact Laura Thorne <a href="mailto:laura.thorne@comcast.net">laura.thorne@comcast.net</a> or
+your order. You may contact
 Sarah Hoag at <a href="mailto:sarah@gibsonenvironmental.com">sarah@gibsonenvironmental.com</a>
+or Carrie Hess at <a href="mailto:chess@imprint-e.com">chess@imprint-e.com</a>
+with any questions. 
 </p>
             <img class="pull-right" src="images/home_logo.png"/>
         </div>
@@ -77,8 +79,9 @@ Sarah Hoag at <a href="mailto:sarah@gibsonenvironmental.com">sarah@gibsonenviron
                 <div class="form-group">
                     <div class="checkbox">
                         <input type="checkbox"
+			       ng-hide="true"
                                ng-change="vm.updateUser()"
-                               ng-model="vm.user.volunteer"><label>Volunteer</label>
+			       ng-model="vm.user.volunteer"><label style="display: none">Volunteer</label>
                     </div>
                     <input ng-if="vm.user.volunteer" type="text"
                            class="form-control" id="fullName" placeholder="Unloading, organizing, etc..."
@@ -87,6 +90,7 @@ Sarah Hoag at <a href="mailto:sarah@gibsonenvironmental.com">sarah@gibsonenviron
                 </div>
                 <span ng-if="vm.userDetails.$invalid"
                       class="btn btn-primary" ng-disabled="vm.userDetails.$invalid">View Cart</span>
+                <a class="btn btn-primary" target="_blank" href="http://www.signupgenius.com/go/10c0e4aa8ab2fa7fc1-plant">Volunteer</a>
                 <a ng-if="!vm.userDetails.$invalid" class="btn btn-primary" href="/summary">View Cart</a></h2>
             </form>
         </div>
