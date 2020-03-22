@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import (
     check_password, make_password, is_password_usable)
 
 
-from api.plants.managers import StakeholderManager
+from plants.managers import StakeholderManager
 
 class Plant(models.Model):
 
