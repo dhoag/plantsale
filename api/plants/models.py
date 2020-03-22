@@ -5,7 +5,8 @@ from django.db import models
 from django.contrib.auth.hashers import (
     check_password, make_password, is_password_usable)
 
-from managers import StakeholderManager
+
+from api.plants.managers import StakeholderManager
 
 class Plant(models.Model):
 
@@ -109,7 +110,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
 
-    plant = models.ForeignKey(Plant)
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE )
     qty = models.IntegerField(default=1)
     color = models.CharField(max_length=200, blank=True, null=True)

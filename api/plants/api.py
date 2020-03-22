@@ -13,8 +13,8 @@ from plantsale.settings import STRIPE_KEY
 
 import stripe
 
-from models import Stakeholder, Plant, Order, OrderItem
-from serializers import AccountSerializer, LoginSerializer, PlantSerializer, OrderSerializer, \
+from . models import Stakeholder, Plant, Order, OrderItem
+from . serializers import AccountSerializer, LoginSerializer, PlantSerializer, OrderSerializer, \
     OrderItemSerializer, StakeholderSerializer, AllOrderSerializer
 
 
@@ -65,8 +65,8 @@ class PayOrder(generics.UpdateAPIView, CurrentUserMixin):
             order.done = True
             order.save()
             return Response(OrderSerializer(order).data, status.HTTP_202_ACCEPTED)
-        except stripe.error.CardError, e:
-            print e
+        except stripe.error.CardError as e:
+            print (e)
             # The card has been declined
             return Response({'detail': e.message}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -203,7 +203,7 @@ class Login(CurrentUserMixin, generics.RetrieveAPIView):
 
                 return Response(result, status=status.HTTP_200_OK)
         except Exception as e:
-            print e
+            print (e)
 
         return Response(
                 {'detail': 'Failed to login'}, status=status.HTTP_400_BAD_REQUEST)

@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'plants',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,13 +61,13 @@ WSGI_APPLICATION = 'plantsale.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DB_HOST = os.environ.get('POSTGRES_SERVICE_HOST')
-DB_PORT = os.environ.get('POSTGRES_SERVICE_PORT')
-DB_PASS = os.environ.get('POSTGRES_PASSWORD')
+DB_HOST = str(os.environ.get('POSTGRES_SERVICE_HOST'))
+DB_PORT = str(os.environ.get('POSTGRES_SERVICE_PORT'))
+DB_PASS = str(os.environ.get('POSTGRES_PASSWORD'))
 ## Default to a linked container called DB_1. Only used if DATABASE_URL isn't set
 DOCKER_DB_URL = 'postgres://docker:{0}@{1}/docker'.format( DB_PASS, os.environ.get('DB_1_PORT_5432_TCP_ADDR', DB_HOST+ ':' + DB_PORT) )
 STRIPE_KEY = os.environ.get('STRIPE_KEY', "sk_test_zjKOcAlbiR2ltU6xo9E7FBGK")
-print STRIPE_KEY[:-12]
+print (STRIPE_KEY[:-12])
 
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 DATABASES = {
